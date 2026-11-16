@@ -41,6 +41,16 @@ def require_admin(user: CurrentUser) -> User:
 AdminUser = Annotated[User, Depends(require_admin)]
 
 
+def require_consent(user: CurrentUser) -> User:
+    """Gate for anything that reads or stores profile data (FR-02)."""
+    if user.consent_at is None:
+        raise ApiError(403, "consent_required", "Give consent before sharing profile data.")
+    return user
+
+
+ConsentedUser = Annotated[User, Depends(require_consent)]
+
+
 def user_out(user: User) -> UserOut:
     def utc(moment):
         return moment.replace(tzinfo=UTC) if moment and moment.tzinfo is None else moment

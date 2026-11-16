@@ -3,7 +3,7 @@
 Read this first. Update it at the end of every session, and before a session runs out of tokens.
 
 ## Current state
-- Active story: 2.2 Consent + delete (not started). 2.1 Auth is done. Epic 1 stories 1.1, 1.3, 1.4, 1.5 are done; 1.2 waits on the owner (label verification, Bijoy samples); Increment 1 (`eval/run_eval.py --extract-only`) is not built. 1.2 stays open on the owner's side (label verification, Bijoy samples).
+- Active story: 2.3 CV → profile (not started). 2.1 Auth and 2.2 Consent + delete are done. Epic 1 stories 1.1, 1.3, 1.4, 1.5 are done; 1.2 waits on the owner (label verification, Bijoy samples); Increment 1 (`eval/run_eval.py --extract-only`) is not built. 1.2 stays open on the owner's side (label verification, Bijoy samples).
 - Last tool used: Claude Code
 - Last updated: 2026-11-17
 - Branch: main
@@ -13,12 +13,13 @@ Read this first. Update it at the end of every session, and before a session run
 1. Owner: check each `eval/labels/*.json` against its PDF, fix errors, set `"verified": true`
 2. Owner: add at least 2 Bijoy/SutonnyMJ circulars (none found on the 71 gov.bd sites swept) with labels; then Story 1.2 closes
 3. Increment 1: make `python eval/run_eval.py --extract-only` print baseline field accuracy (reuse the scoring in `eval/spike.py`, output the frozen `FactCard`)
-4. Story 2.2: `POST /me/consent` and `DELETE /me` (cascade), with a consent screen and a delete-account button in the UI
+4. Story 2.3: CV upload → draft profile → review/edit screen → confirm → file deleted. New `profiles` table must use `owner_fk()`. Needs an LLM call (ADR-007) and PyMuPDF / python-docx as runtime dependencies
 5. Before Story 3.1: measure the embedding model's memory (ADR-008); needs the model files, which the owner declined to download during the spike
 
 ## Done (newest first)
 | Date | Tool | Story | What changed | Files |
 |---|---|---|---|---|
+| 2026-11-17 | Claude Code | 2.2 | Consent and deletion: `POST /me/consent` (idempotent), `DELETE /me` (database-level delete with cascade), consent gate on CV upload and profile save; `owner_fk()` helper and a test that every table pointing at `users` cascades; frontend consent card and two-step delete control. 27 backend tests pass; contract unchanged. Local only, not committed | `backend/app/api/{me,deps}.py`, `backend/app/db/{models,session}.py`, `backend/tests/{test_account,test_contract}.py`, `frontend/src/components/{ConsentCard,DeleteAccount,AuthProvider}.tsx`, `frontend/src/pages/HomePage.tsx`, `frontend/src/hooks/useAuth.ts`, `frontend/src/api/auth.ts`, `frontend/src/index.css`, `docs/API.md` |
 | 2026-11-17 | Claude Code | 2.1 | Auth: register, login and `GET /me` live; argon2id hashes, 60-minute HS256 JWT, user and role loaded from the DB per request, admin guard, per-IP limit on auth routes, CORS; SQLAlchemy `users` table with SQLite fallback; frontend sign-in / sign-up screens with session kept per ADR-012. 20 backend tests pass. Contract changed on purpose: 429 on register and login. Local only, not committed | `backend/app/core/{config,security,ratelimit}.py`, `backend/app/db/{session,models}.py`, `backend/app/api/{auth,deps,me}.py`, `backend/app/main.py`, `backend/tests/{conftest,test_auth,test_contract}.py`, `backend/pyproject.toml`, `frontend/src/{api,hooks,components,pages}/*`, `frontend/src/App.tsx`, `frontend/src/index.css`, `frontend/vite.config.ts`, `frontend/index.html`, `docs/openapi.json`, `frontend/src/types/api.d.ts`, `docs/API.md`, `docs/ARCHITECTURE.md`, `.env.example`, `.gitignore`, ADR-011, ADR-012 |
 | 2026-11-17 | Claude Code | Epic 1 | Plain-language summary of Epic 1, story by story, with open items and how it feeds Epics 2–4. Local only, not committed | `docs/EPIC-1-SUMMARY.md` |
 | 2026-11-17 | Claude Code | 1.5 | API contract frozen: 41 Pydantic schemas, 15 endpoints as stub routes (501), one error shape, OpenAPI snapshot with a guard test, generated frontend types, API document. Local only, not committed | `backend/app/core/schemas.py`, `backend/app/core/errors.py`, `backend/app/api/{auth,me,circulars,deps}.py`, `backend/app/main.py`, `backend/tests/test_contract.py`, `backend/pyproject.toml`, `docs/API.md`, `docs/openapi.json`, `frontend/src/types/api.d.ts`, `frontend/package.json`, `_context/decisions/ADR-010-api-contract-v1.md`, `docs/ARCHITECTURE.md` |
@@ -30,8 +31,8 @@ Read this first. Update it at the end of every session, and before a session run
 | 2026-11-16 | Claude Code | 1.1 | Repo skeleton: backend package folders, FastAPI app with `/health` + test, Vite React-TS app (demo content trimmed), eval folders + stub runner, `.env.example`, `.gitignore`, CI lint workflow; first commit pushed to GitHub | `backend/`, `frontend/`, `eval/`, `.env.example`, `.gitignore`, `.github/workflows/lint.yml` |
 
 ## In progress / half-done
-- Story 2.1 work is uncommitted: the owner adds, commits and pushes manually.
-- Live routes: `/health`, `/auth/register`, `/auth/login`, `GET /me`. Every other route is still a stub returning 501.
+- Story 2.2 work is uncommitted: the owner adds, commits and pushes manually.
+- Live routes: `/health`, `/auth/register`, `/auth/login`, `GET /me`, `POST /me/consent`, `DELETE /me`. Every other route is still a stub returning 501.
 - `has_confirmed_profile` is always false until Story 2.3.
 - ADR-008 (embedding memory) has an open part; see "Next actions".
 - All 15 labels are AI drafts (`"verified": false`). They are not ground truth until the owner checks them.
@@ -39,7 +40,9 @@ Read this first. Update it at the end of every session, and before a session run
 
 ## Known issues / blockers
 - Corpus gap: 0 Bijoy circulars (target ≥ 2). `python eval/corpus.py check` reports it as `GAP`.
-- The sign-in screens were checked by type-check, lint and build, and the API flow by curl against a running server; nobody has clicked through them in a browser yet. There are no frontend tests.
+- Cascade on delete is proven with a stand-in table only, because `users` is still the only real table. Each new table with user data must use `owner_fk()`; `test_every_table_that_points_at_users_cascades` fails otherwise.
+- Consent cannot be withdrawn except by deleting the account. Account deletion asks for no password, only a second click.
+- The consent card and delete control, like the sign-in screens, were checked by type-check, lint and build, and the API flow by curl against a running server; nobody has clicked through them in a browser yet. There are no frontend tests.
 - No way to create an admin from the app: set `role = 'admin'` on the user row by hand. No password reset (ADR-001).
 - The rate limit is in memory, per process; it resets on restart.
 - No Neon database yet: auth has only run on SQLite (ADR-011).
@@ -54,6 +57,8 @@ Read this first. Update it at the end of every session, and before a session run
 - pytest prints a Starlette deprecation warning about `httpx` in the test client; harmless for now.
 
 ## Decisions made this session
+- Minor, no ADR: consent is not a blocking screen. It is a card on the account page, and only CV upload and profile save require it; circular questions that need no profile stay usable.
+- Minor, no ADR: SQLite foreign keys are switched on per connection (`PRAGMA foreign_keys=ON`) so cascades behave as on Postgres.
 - ADR-011 SQLAlchemy 2 + psycopg; SQLite file when `DATABASE_URL` is empty; `create_all` until Alembic arrives in Story 3.1.
 - ADR-012 (provisional, owner to confirm) JWT in memory mirrored to `sessionStorage`.
 - Minor, no ADR: frontend has no router library; `App.tsx` switches screens on auth state. Vite reads the repo-root `.env` (`envDir: '..'`).

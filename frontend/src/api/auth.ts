@@ -13,3 +13,8 @@ export const login = (body: Credentials) =>
   api<TokenResponse>('/auth/login', { method: 'POST', body })
 
 export const getMe = (token: string) => api<User>('/me', { token })
+
+export const giveConsent = (token: string) =>
+  api<User>('/me/consent', { method: 'POST', body: { accepted: true }, token })
+
+export const deleteAccount = (token: string) => api<void>('/me', { method: 'DELETE', token })

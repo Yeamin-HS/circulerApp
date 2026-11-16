@@ -61,6 +61,7 @@ them costs missed deadlines or wasted non-refundable application fees.
   `/health` are stubs returning 501
 - Story 2.1: done. Register, login and `GET /me` are live (ADR-011 database access, ADR-012
   JWT storage)
-- Next step: Story 2.2 (consent + delete). Increment 1 (`eval/run_eval.py --extract-only`)
+- Story 2.2: done. Consent is stored; `DELETE /me` cascades
+- Next step: Story 2.3 (CV → profile). Increment 1 (`eval/run_eval.py --extract-only`)
   is still not built
 - Open questions: see "Open items" at the end of docs/ARCHITECTURE.md

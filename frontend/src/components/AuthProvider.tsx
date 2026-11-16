@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import type { ReactNode } from 'react'
-import { getMe, login, register } from '../api/auth'
+import { deleteAccount, getMe, giveConsent, login, register } from '../api/auth'
 import type { Credentials } from '../api/auth'
 import { ApiError } from '../api/client'
 import type { TokenResponse, User } from '../api/client'
@@ -77,16 +77,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setSession(next)
   }, [])
 
+  const token = session?.token ?? null
+
+  const acceptConsent = useCallback(async () => {
+    if (token) setUser(await giveConsent(token))
+  }, [token])
+
+  const removeAccount = useCallback(async () => {
+    if (!token) return
+    await deleteAccount(token)
+    signOut()
+  }, [token, signOut])
+
   const value = useMemo<AuthState>(
     () => ({
       status: !session ? 'signedOut' : user ? 'signedIn' : 'loading',
       user,
-      token: session?.token ?? null,
+      token,
       signIn: (credentials: Credentials) => start(login(credentials)),
       signUp: (credentials: Credentials) => start(register(credentials)),
       signOut,
+      acceptConsent,
+      removeAccount,
     }),
-    [session, user, start, signOut],
+    [session, user, token, start, signOut, acceptConsent, removeAccount],
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

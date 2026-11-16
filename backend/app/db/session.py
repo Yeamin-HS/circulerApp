@@ -4,7 +4,8 @@ from collections.abc import Iterator
 from typing import Annotated
 
 from fastapi import Depends
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, event
+from sqlalchemy.engine import Engine
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
 
 from app.core.config import settings
@@ -16,6 +17,13 @@ engine = create_engine(
     connect_args={"check_same_thread": False} if _sqlite else {},
 )
 SessionLocal = sessionmaker(engine, expire_on_commit=False)
+
+
+@event.listens_for(Engine, "connect")
+def _sqlite_foreign_keys(connection, _record) -> None:
+    """SQLite ignores foreign keys (and so ON DELETE CASCADE) unless asked on each connection."""
+    if type(connection).__module__.startswith("sqlite3"):
+        connection.execute("PRAGMA foreign_keys=ON")
 
 
 class Base(DeclarativeBase):

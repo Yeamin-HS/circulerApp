@@ -63,7 +63,7 @@ def test_errors_share_one_shape(client: TestClient, token: str) -> None:
     assert invalid.status_code == 422
     assert invalid.json()["error"]["code"] == "validation_error"
 
-    stub = client.get("/me/profile", headers={"Authorization": f"Bearer {token}"})
+    stub = client.get("/circulars", headers={"Authorization": f"Bearer {token}"})
     assert stub.status_code == 501
     assert stub.json()["error"]["code"] == "not_implemented"
 

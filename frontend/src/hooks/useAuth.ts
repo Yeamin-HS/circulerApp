@@ -10,6 +10,10 @@ export interface AuthState {
   signIn: (credentials: Credentials) => Promise<void>
   signUp: (credentials: Credentials) => Promise<void>
   signOut: () => void
+  /** Record consent to store a profile (FR-02). */
+  acceptConsent: () => Promise<void>
+  /** Delete the account and all data, then sign out. Cannot be undone. */
+  removeAccount: () => Promise<void>
 }
 
 export const AuthContext = createContext<AuthState | null>(null)

@@ -201,3 +201,64 @@ code {
 .loading {
   margin-top: 96px;
 }
+
+/* ---------- consent and account deletion (Story 2.2) ---------- */
+.panel {
+  margin: 0 0 20px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+.panel h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-h);
+}
+.panel p,
+.panel ul {
+  margin: 0 0 12px;
+  font-size: 15px;
+}
+.panel ul {
+  padding-left: 20px;
+}
+.panel li {
+  margin-bottom: 4px;
+}
+.card label.check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.card label.check input {
+  margin-top: 4px;
+  padding: 0;
+}
+.panel.danger {
+  border-color: #d33;
+}
+.card button.danger {
+  background: #d33;
+}
+.card button.link.danger {
+  background: none;
+  color: #d33;
+  font-size: 15px;
+}
+.card button.quiet {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-h);
+}
+.card .row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.card .footer {
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}

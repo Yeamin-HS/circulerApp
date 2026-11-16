@@ -25,8 +25,8 @@ page is the human summary. Run the backend and open `/docs` for the interactive 
 | `POST /auth/register` | — | `RegisterRequest` | 201 `TokenResponse` | 409 `email_taken`, 422, 429 | done |
 | `POST /auth/login` | — | `LoginRequest` | 200 `TokenResponse` | 401 `invalid_credentials`, 422, 429 | done |
 | `GET /me` | seeker | — | 200 `UserOut` | 401 | done |
-| `DELETE /me` | seeker | — | 204 | 401 | 2.2 |
-| `POST /me/consent` | seeker | `ConsentRequest` | 200 `UserOut` | 401, 422 | 2.2 |
+| `DELETE /me` | seeker | — | 204 | 401 | done |
+| `POST /me/consent` | seeker | `ConsentRequest` | 200 `UserOut` | 401, 422 | done |
 | `POST /me/cv` | seeker | file: PDF or DOCX, ≤ 5 MB | 200 `CVDraft` | 401, 403 `consent_required`, 413, 415, 422, 429 | 2.3 |
 | `PUT /me/profile` | seeker | `CVProfile` | 200 `ProfileOut` | 401, 403 `consent_required`, 422 | 2.3 |
 | `GET /me/profile` | seeker | — | 200 `ProfileOut` | 401, 404 | 2.3 |
@@ -45,6 +45,11 @@ Notes:
   they return 429 `rate_limited` with `retry_after`. Emails are compared in lower case.
 - Login gives the same 401 for a wrong password and an unknown email.
 - The role is read from the database on every request, not from the token.
+- `POST /me/consent` is idempotent: a repeat call keeps the first timestamp. There is no
+  call to withdraw consent; deleting the account is the way to withdraw.
+- `DELETE /me` removes the user row and, through `ON DELETE CASCADE`, every row that
+  belongs to the user. The token stops working at once.
+- `POST /me/cv` and `PUT /me/profile` return 403 `consent_required` until consent is given.
 - `POST /me/cv` stores nothing. The draft becomes a profile only through `PUT /me/profile`,
   which also deletes the uploaded file (SOP hard rule 6).
 - `GET /circulars` is sorted by deadline, earliest first, circulars with no deadline last.

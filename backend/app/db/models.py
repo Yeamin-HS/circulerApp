@@ -2,7 +2,7 @@
 
 from datetime import UTC, datetime
 
-from sqlalchemy import DateTime, String
+from sqlalchemy import DateTime, ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.db.session import Base
@@ -10,6 +10,14 @@ from app.db.session import Base
 
 def utcnow() -> datetime:
     return datetime.now(UTC)
+
+
+def owner_fk(*, primary_key: bool = False) -> Mapped[int]:
+    """Column that ties a row to its user. Every table holding user data must use this, so
+    that deleting the account removes the rows (SOP hard rule 6). A test enforces it."""
+    return mapped_column(
+        ForeignKey("users.id", ondelete="CASCADE"), primary_key=primary_key, index=True
+    )
 
 
 class User(Base):

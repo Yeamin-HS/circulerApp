@@ -50,13 +50,15 @@ them costs missed deadlines or wasted non-refundable application fees.
 - **Bijoy / SutonnyMJ**: legacy non-Unicode Bangla font encoding; must be converted.
 
 ## Current phase / status
-- Phase: 1 — Initiation & Architecture (repo skeleton in place: empty FastAPI app with
-  `/health`, Vite React-TS app, CI lint job; no feature code yet)
+- Phase: 1 — Initiation & Architecture, stories complete except 1.2's owner tasks (repo
+  skeleton, test corpus, format spike, agent design, frozen API contract; no feature code yet)
 - Last updated: 2026-11-17
 - Story 1.2: 15 circulars collected with draft labels; open until the owner verifies the
   labels and adds at least 2 Bijoy circulars
 - Story 1.3: done, results in docs/SPIKE.md, ADR-005 to ADR-008. Open part: embedding
   memory (needs the model files, ADR-008)
 - Story 1.4: done, design in docs/AGENT.md, prompts in backend/app/agent/prompts.py, ADR-009
-- Next step: Story 1.5 (API contracts)
+- Story 1.5: done, contract in docs/API.md and docs/openapi.json, ADR-010. All routes except
+  `/health` are stubs returning 501
+- Next step: Increment 1 (`eval/run_eval.py --extract-only`), then Story 2.1 (auth)
 - Open questions: see "Open items" at the end of docs/ARCHITECTURE.md

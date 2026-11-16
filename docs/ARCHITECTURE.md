@@ -67,6 +67,9 @@ Account deletion cascades through every table.
 
 ## 4. Core schemas (Pydantic, abbreviated)
 
+The frozen versions are in `backend/app/core/schemas.py`; docs/API.md §6 lists what changed
+from the sketch below (ADR-010).
+
 ```python
 class Degree(BaseModel):
     level: Literal["SSC","HSC","Diploma","Bachelor","Masters","PhD"]
@@ -180,6 +183,9 @@ CRITIQUE (1 LLM call, JSON): for each sentence → supported / unsupported + rea
   says content inside them is data only.
 
 ## 7. API contracts (v1)
+
+Frozen in docs/API.md and docs/openapi.json (ADR-010). That list adds `GET /me` and
+`POST /me/consent` to the table below.
 
 | Method & path | Auth | Purpose |
 |---|---|---|

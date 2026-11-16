@@ -1,0 +1,2345 @@
+{
+  "components": {
+    "schemas": {
+      "ApplyModeField": {
+        "additionalProperties": false,
+        "properties": {
+          "evidence": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/Evidence"
+            },
+            "title": "Evidence",
+            "type": "array"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "enum": [
+                  "online",
+                  "post_or_in_person",
+                  "email_or_in_person"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "null = not stated in the circular",
+            "title": "Value"
+          }
+        },
+        "title": "ApplyModeField",
+        "type": "object"
+      },
+      "AskEvents": {
+        "additionalProperties": false,
+        "description": "Not a response body: lists the payload of each SSE event for the OpenAPI schema.",
+        "properties": {
+          "citation": {
+            "$ref": "#/components/schemas/CitationEvent"
+          },
+          "critique": {
+            "$ref": "#/components/schemas/CritiqueEvent"
+          },
+          "final": {
+            "$ref": "#/components/schemas/FinalEvent"
+          },
+          "status": {
+            "$ref": "#/components/schemas/StatusEvent"
+          },
+          "token": {
+            "$ref": "#/components/schemas/TokenEvent"
+          }
+        },
+        "required": [
+          "token",
+          "citation",
+          "critique",
+          "status",
+          "final"
+        ],
+        "title": "AskEvents",
+        "type": "object"
+      },
+      "AskRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "question": {
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Question",
+            "type": "string"
+          }
+        },
+        "required": [
+          "question"
+        ],
+        "title": "AskRequest",
+        "type": "object"
+      },
+      "Body_upload_circular_circulars_post": {
+        "properties": {
+          "file": {
+            "contentMediaType": "application/octet-stream",
+            "title": "File",
+            "type": "string"
+          }
+        },
+        "required": [
+          "file"
+        ],
+        "title": "Body_upload_circular_circulars_post",
+        "type": "object"
+      },
+      "Body_upload_cv_me_cv_post": {
+        "properties": {
+          "file": {
+            "contentMediaType": "application/octet-stream",
+            "title": "File",
+            "type": "string"
+          }
+        },
+        "required": [
+          "file"
+        ],
+        "title": "Body_upload_cv_me_cv_post",
+        "type": "object"
+      },
+      "CVDraft": {
+        "additionalProperties": false,
+        "description": "Extracted from the uploaded CV. Not stored until PUT /me/profile.",
+        "properties": {
+          "profile": {
+            "$ref": "#/components/schemas/CVProfile"
+          },
+          "warnings": {
+            "default": [],
+            "description": "e.g. hidden text found in the file",
+            "items": {
+              "type": "string"
+            },
+            "title": "Warnings",
+            "type": "array"
+          }
+        },
+        "required": [
+          "profile"
+        ],
+        "title": "CVDraft",
+        "type": "object"
+      },
+      "CVProfile": {
+        "additionalProperties": false,
+        "properties": {
+          "certifications": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Certifications",
+            "type": "array"
+          },
+          "date_of_birth": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date Of Birth"
+          },
+          "degrees": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/Degree"
+            },
+            "title": "Degrees",
+            "type": "array"
+          },
+          "experience": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/Experience"
+            },
+            "title": "Experience",
+            "type": "array"
+          },
+          "full_name": {
+            "title": "Full Name",
+            "type": "string"
+          },
+          "skills": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Skills",
+            "type": "array"
+          }
+        },
+        "required": [
+          "full_name"
+        ],
+        "title": "CVProfile",
+        "type": "object"
+      },
+      "Check": {
+        "additionalProperties": false,
+        "properties": {
+          "actual": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "What the profile has, as short text",
+            "title": "Actual"
+          },
+          "evidence": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/Evidence"
+            },
+            "title": "Evidence",
+            "type": "array"
+          },
+          "name": {
+            "enum": [
+              "age",
+              "degree",
+              "result",
+              "experience",
+              "subject"
+            ],
+            "title": "Name",
+            "type": "string"
+          },
+          "required": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "What the circular asks, as short text",
+            "title": "Required"
+          },
+          "status": {
+            "enum": [
+              "pass",
+              "fail",
+              "unknown"
+            ],
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "status",
+          "required",
+          "actual"
+        ],
+        "title": "Check",
+        "type": "object"
+      },
+      "ChunkOut": {
+        "additionalProperties": false,
+        "properties": {
+          "circular_id": {
+            "title": "Circular Id",
+            "type": "integer"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "kind": {
+            "enum": [
+              "text",
+              "table_row"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer"
+          },
+          "post_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Post Id"
+          },
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "circular_id",
+          "post_id",
+          "page",
+          "kind",
+          "text"
+        ],
+        "title": "ChunkOut",
+        "type": "object"
+      },
+      "CircularDetail": {
+        "additionalProperties": false,
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "fact_card": {
+            "$ref": "#/components/schemas/FactCard"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "pages": {
+            "title": "Pages",
+            "type": "integer"
+          },
+          "posts": {
+            "description": "Same order as fact_card.posts, with ids",
+            "items": {
+              "$ref": "#/components/schemas/PostOut"
+            },
+            "title": "Posts",
+            "type": "array"
+          },
+          "source_type": {
+            "enum": [
+              "digital",
+              "scanned",
+              "bijoy"
+            ],
+            "title": "Source Type",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "source_type",
+          "pages",
+          "created_at",
+          "fact_card",
+          "posts"
+        ],
+        "title": "CircularDetail",
+        "type": "object"
+      },
+      "CircularSummary": {
+        "additionalProperties": false,
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "deadline": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deadline"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "organisation": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Organisation"
+          },
+          "source_type": {
+            "enum": [
+              "digital",
+              "scanned",
+              "bijoy"
+            ],
+            "title": "Source Type",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "verdicts": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/VerdictCounts"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "null without a confirmed profile"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "organisation",
+          "source_type",
+          "deadline",
+          "created_at",
+          "verdicts"
+        ],
+        "title": "CircularSummary",
+        "type": "object"
+      },
+      "CitationEvent": {
+        "additionalProperties": false,
+        "description": "`event: citation`. Sources the current answer cites.",
+        "properties": {
+          "ids": {
+            "items": {
+              "pattern": "^(c:\\d+|p|e:\\d+)$",
+              "type": "string"
+            },
+            "title": "Ids",
+            "type": "array"
+          }
+        },
+        "required": [
+          "ids"
+        ],
+        "title": "CitationEvent",
+        "type": "object"
+      },
+      "ConsentRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "accepted": {
+            "const": true,
+            "title": "Accepted",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "accepted"
+        ],
+        "title": "ConsentRequest",
+        "type": "object"
+      },
+      "CritiqueEvent": {
+        "additionalProperties": false,
+        "description": "`event: critique`. Result of one critique round.",
+        "properties": {
+          "passed": {
+            "title": "Passed",
+            "type": "boolean"
+          },
+          "round": {
+            "title": "Round",
+            "type": "integer"
+          },
+          "sentences": {
+            "items": {
+              "$ref": "#/components/schemas/SentenceVerdict"
+            },
+            "title": "Sentences",
+            "type": "array"
+          }
+        },
+        "required": [
+          "round",
+          "passed",
+          "sentences"
+        ],
+        "title": "CritiqueEvent",
+        "type": "object"
+      },
+      "DateField": {
+        "additionalProperties": false,
+        "properties": {
+          "evidence": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/Evidence"
+            },
+            "title": "Evidence",
+            "type": "array"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "null = not stated in the circular",
+            "title": "Value"
+          }
+        },
+        "title": "DateField",
+        "type": "object"
+      },
+      "Degree": {
+        "additionalProperties": false,
+        "properties": {
+          "division": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Older results, e.g. '1st division'",
+            "title": "Division"
+          },
+          "institution": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Institution"
+          },
+          "level": {
+            "enum": [
+              "Class 8",
+              "JSC",
+              "SSC",
+              "HSC",
+              "Diploma",
+              "Bachelor",
+              "Masters",
+              "PhD"
+            ],
+            "title": "Level",
+            "type": "string"
+          },
+          "passing_year": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Passing Year"
+          },
+          "result": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "CGPA or GPA",
+            "title": "Result"
+          },
+          "result_scale": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "4.0 or 5.0",
+            "title": "Result Scale"
+          },
+          "subject": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Subject"
+          }
+        },
+        "required": [
+          "level"
+        ],
+        "title": "Degree",
+        "type": "object"
+      },
+      "DegreeField": {
+        "additionalProperties": false,
+        "properties": {
+          "evidence": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/Evidence"
+            },
+            "title": "Evidence",
+            "type": "array"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "enum": [
+                  "Class 8",
+                  "JSC",
+                  "SSC",
+                  "HSC",
+                  "Diploma",
+                  "Bachelor",
+                  "Masters",
+                  "PhD"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "null = not stated in the circular",
+            "title": "Value"
+          }
+        },
+        "title": "DegreeField",
+        "type": "object"
+      },
+      "EligibilityReport": {
+        "additionalProperties": false,
+        "properties": {
+          "circular_id": {
+            "title": "Circular Id",
+            "type": "integer"
+          },
+          "posts": {
+            "items": {
+              "$ref": "#/components/schemas/PostEligibility"
+            },
+            "title": "Posts",
+            "type": "array"
+          },
+          "profile_version": {
+            "title": "Profile Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "circular_id",
+          "profile_version",
+          "posts"
+        ],
+        "title": "EligibilityReport",
+        "type": "object"
+      },
+      "ErrorBody": {
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "enum": [
+              "validation_error",
+              "unauthorized",
+              "forbidden",
+              "not_found",
+              "email_taken",
+              "invalid_credentials",
+              "consent_required",
+              "profile_required",
+              "file_too_large",
+              "unsupported_file",
+              "too_many_pages",
+              "unreadable_file",
+              "rate_limited",
+              "not_implemented",
+              "internal_error"
+            ],
+            "title": "Code",
+            "type": "string"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "retry_after": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Seconds; set with rate_limited",
+            "title": "Retry After"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "title": "ErrorBody",
+        "type": "object"
+      },
+      "ErrorResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/ErrorBody"
+          }
+        },
+        "required": [
+          "error"
+        ],
+        "title": "ErrorResponse",
+        "type": "object"
+      },
+      "Evidence": {
+        "additionalProperties": false,
+        "properties": {
+          "chunk_id": {
+            "title": "Chunk Id",
+            "type": "integer"
+          },
+          "quote": {
+            "description": "Exact substring of the chunk text",
+            "title": "Quote",
+            "type": "string"
+          }
+        },
+        "required": [
+          "chunk_id",
+          "quote"
+        ],
+        "title": "Evidence",
+        "type": "object"
+      },
+      "Experience": {
+        "additionalProperties": false,
+        "properties": {
+          "end": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "null = current job",
+            "title": "End"
+          },
+          "organisation": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Organisation"
+          },
+          "start": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Start"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "title"
+        ],
+        "title": "Experience",
+        "type": "object"
+      },
+      "FactCard": {
+        "additionalProperties": false,
+        "properties": {
+          "age_as_of": {
+            "$ref": "#/components/schemas/DateField"
+          },
+          "age_limit": {
+            "$ref": "#/components/schemas/IntField"
+          },
+          "apply_link": {
+            "$ref": "#/components/schemas/StrField"
+          },
+          "apply_mode": {
+            "$ref": "#/components/schemas/ApplyModeField"
+          },
+          "deadline": {
+            "$ref": "#/components/schemas/DateField"
+          },
+          "fee": {
+            "$ref": "#/components/schemas/StrField"
+          },
+          "how_to_apply": {
+            "$ref": "#/components/schemas/StrField"
+          },
+          "organisation": {
+            "$ref": "#/components/schemas/StrField"
+          },
+          "posts": {
+            "items": {
+              "$ref": "#/components/schemas/PostReq"
+            },
+            "title": "Posts",
+            "type": "array"
+          }
+        },
+        "required": [
+          "organisation",
+          "posts",
+          "deadline",
+          "age_limit",
+          "age_as_of",
+          "fee",
+          "apply_mode",
+          "how_to_apply",
+          "apply_link"
+        ],
+        "title": "FactCard",
+        "type": "object"
+      },
+      "FinalEvent": {
+        "additionalProperties": false,
+        "description": "`event: final`. Always the last event. Replaces any streamed draft text.",
+        "properties": {
+          "answer": {
+            "title": "Answer",
+            "type": "string"
+          },
+          "cached": {
+            "title": "Cached",
+            "type": "boolean"
+          },
+          "citations": {
+            "items": {
+              "pattern": "^(c:\\d+|p|e:\\d+)$",
+              "type": "string"
+            },
+            "title": "Citations",
+            "type": "array"
+          },
+          "language": {
+            "enum": [
+              "bn",
+              "en"
+            ],
+            "title": "Language",
+            "type": "string"
+          },
+          "n_llm_calls": {
+            "title": "N Llm Calls",
+            "type": "integer"
+          },
+          "outcome": {
+            "enum": [
+              "answered",
+              "abstained",
+              "refused"
+            ],
+            "title": "Outcome",
+            "type": "string"
+          },
+          "route": {
+            "enum": [
+              "fact_lookup",
+              "eligibility",
+              "summary",
+              "out_of_scope"
+            ],
+            "title": "Route",
+            "type": "string"
+          }
+        },
+        "required": [
+          "answer",
+          "outcome",
+          "language",
+          "route",
+          "citations",
+          "n_llm_calls",
+          "cached"
+        ],
+        "title": "FinalEvent",
+        "type": "object"
+      },
+      "FloatField": {
+        "additionalProperties": false,
+        "properties": {
+          "evidence": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/Evidence"
+            },
+            "title": "Evidence",
+            "type": "array"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "null = not stated in the circular",
+            "title": "Value"
+          }
+        },
+        "title": "FloatField",
+        "type": "object"
+      },
+      "Health": {
+        "additionalProperties": false,
+        "properties": {
+          "status": {
+            "const": "ok",
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "title": "Health",
+        "type": "object"
+      },
+      "IntField": {
+        "additionalProperties": false,
+        "properties": {
+          "evidence": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/Evidence"
+            },
+            "title": "Evidence",
+            "type": "array"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "null = not stated in the circular",
+            "title": "Value"
+          }
+        },
+        "title": "IntField",
+        "type": "object"
+      },
+      "LoginRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "email": {
+            "format": "email",
+            "title": "Email",
+            "type": "string"
+          },
+          "password": {
+            "maxLength": 128,
+            "title": "Password",
+            "type": "string"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ],
+        "title": "LoginRequest",
+        "type": "object"
+      },
+      "PostEligibility": {
+        "additionalProperties": false,
+        "properties": {
+          "checks": {
+            "items": {
+              "$ref": "#/components/schemas/Check"
+            },
+            "title": "Checks",
+            "type": "array"
+          },
+          "gaps": {
+            "description": "One line per failed or unknown check (FR-13)",
+            "items": {
+              "type": "string"
+            },
+            "title": "Gaps",
+            "type": "array"
+          },
+          "post_id": {
+            "title": "Post Id",
+            "type": "integer"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "verdict": {
+            "enum": [
+              "eligible",
+              "not_eligible",
+              "unclear"
+            ],
+            "title": "Verdict",
+            "type": "string"
+          }
+        },
+        "required": [
+          "post_id",
+          "title",
+          "verdict",
+          "checks",
+          "gaps"
+        ],
+        "title": "PostEligibility",
+        "type": "object"
+      },
+      "PostOut": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "requirements": {
+            "$ref": "#/components/schemas/PostReq"
+          }
+        },
+        "required": [
+          "id",
+          "requirements"
+        ],
+        "title": "PostOut",
+        "type": "object"
+      },
+      "PostReq": {
+        "additionalProperties": false,
+        "properties": {
+          "age_limit": {
+            "$ref": "#/components/schemas/IntField",
+            "description": "Set only when it differs from the circular's"
+          },
+          "experience_years": {
+            "$ref": "#/components/schemas/FloatField"
+          },
+          "grade": {
+            "$ref": "#/components/schemas/StrField"
+          },
+          "min_degree": {
+            "$ref": "#/components/schemas/DegreeField"
+          },
+          "min_result": {
+            "$ref": "#/components/schemas/StrField"
+          },
+          "subjects": {
+            "$ref": "#/components/schemas/StrListField"
+          },
+          "title": {
+            "$ref": "#/components/schemas/StrField"
+          },
+          "vacancies": {
+            "$ref": "#/components/schemas/IntField"
+          }
+        },
+        "required": [
+          "title",
+          "vacancies",
+          "grade",
+          "min_degree",
+          "subjects",
+          "min_result",
+          "experience_years",
+          "age_limit"
+        ],
+        "title": "PostReq",
+        "type": "object"
+      },
+      "ProfileOut": {
+        "additionalProperties": false,
+        "properties": {
+          "confirmed_at": {
+            "format": "date-time",
+            "title": "Confirmed At",
+            "type": "string"
+          },
+          "profile": {
+            "$ref": "#/components/schemas/CVProfile"
+          },
+          "version": {
+            "description": "Increases on every save; part of the answer cache key",
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "profile",
+          "confirmed_at",
+          "version"
+        ],
+        "title": "ProfileOut",
+        "type": "object"
+      },
+      "RegisterRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "email": {
+            "format": "email",
+            "title": "Email",
+            "type": "string"
+          },
+          "password": {
+            "maxLength": 128,
+            "minLength": 8,
+            "title": "Password",
+            "type": "string"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ],
+        "title": "RegisterRequest",
+        "type": "object"
+      },
+      "SentenceVerdict": {
+        "additionalProperties": false,
+        "properties": {
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          },
+          "text": {
+            "title": "Text",
+            "type": "string"
+          },
+          "verdict": {
+            "enum": [
+              "supported",
+              "unsupported",
+              "not_a_claim"
+            ],
+            "title": "Verdict",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text",
+          "verdict",
+          "reason"
+        ],
+        "title": "SentenceVerdict",
+        "type": "object"
+      },
+      "StatusEvent": {
+        "additionalProperties": false,
+        "description": "`event: status`. Progress, or the LLM free tier being busy.",
+        "properties": {
+          "retry_after": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Seconds; set when state is busy",
+            "title": "Retry After"
+          },
+          "state": {
+            "enum": [
+              "routing",
+              "searching",
+              "verifying",
+              "revising",
+              "busy"
+            ],
+            "title": "State",
+            "type": "string"
+          }
+        },
+        "required": [
+          "state"
+        ],
+        "title": "StatusEvent",
+        "type": "object"
+      },
+      "StrField": {
+        "additionalProperties": false,
+        "properties": {
+          "evidence": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/Evidence"
+            },
+            "title": "Evidence",
+            "type": "array"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "null = not stated in the circular",
+            "title": "Value"
+          }
+        },
+        "title": "StrField",
+        "type": "object"
+      },
+      "StrListField": {
+        "additionalProperties": false,
+        "properties": {
+          "evidence": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/Evidence"
+            },
+            "title": "Evidence",
+            "type": "array"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "null = not stated in the circular",
+            "title": "Value"
+          }
+        },
+        "title": "StrListField",
+        "type": "object"
+      },
+      "TokenEvent": {
+        "additionalProperties": false,
+        "description": "`event: token`. One piece of the draft while it streams.",
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "TokenEvent",
+        "type": "object"
+      },
+      "TokenResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "access_token": {
+            "title": "Access Token",
+            "type": "string"
+          },
+          "expires_in": {
+            "description": "Seconds until the token expires (3600)",
+            "title": "Expires In",
+            "type": "integer"
+          },
+          "token_type": {
+            "const": "bearer",
+            "default": "bearer",
+            "title": "Token Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "access_token",
+          "expires_in"
+        ],
+        "title": "TokenResponse",
+        "type": "object"
+      },
+      "UserOut": {
+        "additionalProperties": false,
+        "properties": {
+          "consent_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Consent At"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "email": {
+            "format": "email",
+            "title": "Email",
+            "type": "string"
+          },
+          "has_confirmed_profile": {
+            "title": "Has Confirmed Profile",
+            "type": "boolean"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "role": {
+            "enum": [
+              "seeker",
+              "admin"
+            ],
+            "title": "Role",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "email",
+          "role",
+          "consent_at",
+          "has_confirmed_profile",
+          "created_at"
+        ],
+        "title": "UserOut",
+        "type": "object"
+      },
+      "VerdictCounts": {
+        "additionalProperties": false,
+        "properties": {
+          "eligible": {
+            "title": "Eligible",
+            "type": "integer"
+          },
+          "not_eligible": {
+            "title": "Not Eligible",
+            "type": "integer"
+          },
+          "unclear": {
+            "title": "Unclear",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "eligible",
+          "not_eligible",
+          "unclear"
+        ],
+        "title": "VerdictCounts",
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "HTTPBearer": {
+        "description": "JWT from /auth/login, valid 60 minutes",
+        "scheme": "bearer",
+        "type": "http"
+      }
+    }
+  },
+  "info": {
+    "title": "Ask the Circular",
+    "version": "0.1.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "description": "Exchange email and password for a 60-minute JWT.",
+        "operationId": "login_auth_login_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Login",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "description": "Create a seeker account and sign in.",
+        "operationId": "register_auth_register_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Register",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/chunks/{chunk_id}": {
+      "get": {
+        "description": "Source text of one chunk, for citation highlighting.",
+        "operationId": "get_chunk_chunks__chunk_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "chunk_id",
+            "required": true,
+            "schema": {
+              "title": "Chunk Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChunkOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Chunk",
+        "tags": [
+          "circulars"
+        ]
+      }
+    },
+    "/circulars": {
+      "get": {
+        "description": "The user's circulars, earliest deadline first; no deadline last.",
+        "operationId": "list_circulars_circulars_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/CircularSummary"
+                  },
+                  "title": "Response List Circulars Circulars Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "List Circulars",
+        "tags": [
+          "circulars"
+        ]
+      },
+      "post": {
+        "description": "Upload a circular (PDF, JPG or PNG; at most 10 MB and 20 pages) and ingest it.",
+        "operationId": "upload_circular_circulars_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_circular_circulars_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CircularDetail"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Request Entity Too Large"
+          },
+          "415": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unsupported Media Type"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Upload Circular",
+        "tags": [
+          "circulars"
+        ]
+      }
+    },
+    "/circulars/{circular_id}": {
+      "get": {
+        "description": "Fact card and posts of one circular.",
+        "operationId": "get_circular_circulars__circular_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "circular_id",
+            "required": true,
+            "schema": {
+              "title": "Circular Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CircularDetail"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Circular",
+        "tags": [
+          "circulars"
+        ]
+      }
+    },
+    "/circulars/{circular_id}/ask": {
+      "post": {
+        "description": "Ask a question about one circular. The answer streams as server-sent events.",
+        "operationId": "ask_circulars__circular_id__ask_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "circular_id",
+            "required": true,
+            "schema": {
+              "title": "Circular Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AskRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "text/event-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/AskEvents",
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Server-sent events: token, citation, critique, status, final. The data of each event is the JSON of the property with the same name."
+          },
+          "401": {
+            "content": {
+              "text/event-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "text/event-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "text/event-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          },
+          "429": {
+            "content": {
+              "text/event-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Ask",
+        "tags": [
+          "circulars"
+        ]
+      }
+    },
+    "/circulars/{circular_id}/eligibility": {
+      "get": {
+        "description": "Per-post verdicts against the confirmed profile, with evidence.",
+        "operationId": "get_eligibility_circulars__circular_id__eligibility_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "circular_id",
+            "required": true,
+            "schema": {
+              "title": "Circular Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EligibilityReport"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Eligibility",
+        "tags": [
+          "circulars"
+        ]
+      }
+    },
+    "/health": {
+      "get": {
+        "description": "Warm-up ping (ARCHITECTURE §7).",
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Health",
+        "tags": [
+          "health"
+        ]
+      }
+    },
+    "/me": {
+      "delete": {
+        "description": "Delete the account and all of its data. Cannot be undone.",
+        "operationId": "delete_me_me_delete",
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Delete Me",
+        "tags": [
+          "me"
+        ]
+      },
+      "get": {
+        "description": "The signed-in user, with consent and profile state.",
+        "operationId": "get_me_me_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Me",
+        "tags": [
+          "me"
+        ]
+      }
+    },
+    "/me/consent": {
+      "post": {
+        "description": "Record consent to store a profile. Required before /me/cv and /me/profile.",
+        "operationId": "give_consent_me_consent_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConsentRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Give Consent",
+        "tags": [
+          "me"
+        ]
+      }
+    },
+    "/me/cv": {
+      "post": {
+        "description": "Upload a CV (PDF or DOCX, at most 5 MB) and get a draft profile. Nothing is saved.",
+        "operationId": "upload_cv_me_cv_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_cv_me_cv_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CVDraft"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Request Entity Too Large"
+          },
+          "415": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unsupported Media Type"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Upload Cv",
+        "tags": [
+          "me"
+        ]
+      }
+    },
+    "/me/profile": {
+      "get": {
+        "description": "The confirmed profile; 404 if none has been confirmed.",
+        "operationId": "get_profile_me_profile_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Profile",
+        "tags": [
+          "me"
+        ]
+      },
+      "put": {
+        "description": "Save the reviewed profile as confirmed. The uploaded CV file is deleted.",
+        "operationId": "save_profile_me_profile_put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CVProfile"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Save Profile",
+        "tags": [
+          "me"
+        ]
+      }
+    }
+  }
+}

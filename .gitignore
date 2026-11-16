@@ -1,0 +1,34 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+build/
+.pytest_cache/
+.ruff_cache/
+
+# Node
+node_modules/
+dist/
+*.local
+
+# Eval: test circulars stay local until their licence is clear; results are generated
+eval/circulars/*
+!eval/circulars/.gitkeep
+eval/results/*
+!eval/results/.gitkeep
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Local AI-tool settings
+.claude/settings.local.json

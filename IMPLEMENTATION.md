@@ -3,30 +3,31 @@
 Read this first. Update it at the end of every session, and before a session runs out of tokens.
 
 ## Current state
-- Active story: 1.2 Test corpus (not started). Story 1.1 is done except for the licence file.
+- Active story: 1.2 Test corpus (not started). Story 1.1 is done.
 - Last tool used: Claude Code
 - Last updated: 2026-11-16
 - Branch: main
 - Remote: https://github.com/Yeamin-HS/circulerApp (public)
 
 ## Next 3 actions
-1. Owner picks a licence (ROADMAP 1.1 lists one); add `LICENSE` to close Story 1.1
-2. Story 1.2: put test circulars in eval/circulars and write labels in eval/labels
-3. Story 1.3: format spike script; record results in docs/SPIKE.md
+1. Story 1.2: put test circulars in eval/circulars and write labels in eval/labels
+2. Story 1.3: format spike script; record results in docs/SPIKE.md
+3. Story 1.4: draft the agent state diagram and prompts (ARCHITECTURE §6)
 
 ## Done (newest first)
 | Date | Tool | Story | What changed | Files |
 |---|---|---|---|---|
+| 2026-11-16 | Claude Code | 1.1 | Added MIT licence; Story 1.1 closed | `LICENSE` |
 | 2026-11-16 | Claude Code | 1.1 | Repo skeleton: backend package folders, FastAPI app with `/health` + test, Vite React-TS app (demo content trimmed), eval folders + stub runner, `.env.example`, `.gitignore`, CI lint workflow; first commit pushed to GitHub | `backend/`, `frontend/`, `eval/`, `.env.example`, `.gitignore`, `.github/workflows/lint.yml` |
 
 ## In progress / half-done
 - Nothing half-written. `eval/run_eval.py` is an intentional stub (exits 1) until Increment 1.
 
 ## Known issues / blockers
-- No `LICENSE` yet: waiting for the owner's choice.
 - pytest prints a Starlette deprecation warning about `httpx` in the test client; harmless for now.
 
 ## Decisions made this session
+- Owner rule: commit messages carry no `Co-Authored-By` AI trailer (keeps AI tools out of the GitHub contributors list).
 - Minor, no ADR: plain `venv` + `pip` with setuptools (no `uv`); `ruff` for Python lint/format.
 - Minor, no ADR: the current Vite `react-ts` template ships `oxlint` instead of ESLint; kept as is.
 - `eval/circulars/*` and `eval/results/*` are gitignored (ARCHITECTURE §2: licence unclear).

@@ -52,5 +52,5 @@ them costs missed deadlines or wasted non-refundable application fees.
 - Phase: 1 — Initiation & Architecture (repo skeleton in place: empty FastAPI app with
   `/health`, Vite React-TS app, CI lint job; no feature code yet)
 - Last updated: 2026-11-16
-- Next step: owner picks a licence to close Story 1.1 → Story 1.2 (collect test circulars)
+- Next step: Story 1.2 (collect test circulars)
 - Open questions: see "Open items" at the end of docs/ARCHITECTURE.md

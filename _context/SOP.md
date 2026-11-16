@@ -35,7 +35,7 @@ them costs missed deadlines or wasted non-refundable application fees.
 - DB + vectors: Neon Postgres (free) with pgvector
 - LLM: Ollama locally (dev) / Groq free tier (prod), behind one `LLMClient` interface
 - Embeddings: `intfloat/multilingual-e5-small` (384-dim) on CPU
-- OCR: Tesseract `ben+eng` baseline; alternative decided in the format spike (Story 1.3)
+- OCR: Tesseract `ben+eng` at 200 dpi (ADR-005); Bijoy files also go through OCR (ADR-006)
 - Auth: own implementation in FastAPI (argon2 + JWT bearer), ADR-001
 
 ## Roles
@@ -54,5 +54,7 @@ them costs missed deadlines or wasted non-refundable application fees.
 - Last updated: 2026-11-16
 - Story 1.2: 15 circulars collected with draft labels; open until the owner verifies the
   labels and adds at least 2 Bijoy circulars
-- Next step: owner verifies labels → Story 1.3 (format spike)
+- Story 1.3: done, results in docs/SPIKE.md, ADR-005 to ADR-008. Open parts: production
+  LLM (needs a Groq key) and embedding memory (needs the model files)
+- Next step: Story 1.4 (agent design)
 - Open questions: see "Open items" at the end of docs/ARCHITECTURE.md

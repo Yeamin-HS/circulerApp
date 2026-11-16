@@ -121,12 +121,12 @@ also appear verbatim in the document text.
 ### 5.1 Circular ingestion
 1. **Validate**: MIME and magic bytes, size ≤ 10 MB, page count ≤ 20.
 2. **Detect type**:
-   - PDF with a text layer whose Bangla characters are valid Unicode → `digital`
-   - text layer that looks like Bijoy-encoded ASCII (heuristic: high share of Latin
-     punctuation and characters typical of SutonnyMJ output, no Bangla Unicode) → `bijoy`
-   - no text layer, or an image → `scanned`
-3. **Get text**: PyMuPDF for digital · Bijoy→Unicode conversion for bijoy · Tesseract
-   `ben+eng` for scanned (after deskew and binarisation with OpenCV).
+   - text layer that is clean English, or Bangla Unicode with intact vowel signs → `digital`
+   - more than half of the text-layer characters set in a Bijoy font (`*MJ`, Sutonny) → `bijoy`
+   - no text layer, an image, or a text layer that is garbled or junk → `scanned`
+   (rules and thresholds measured in docs/SPIKE.md §2)
+3. **Get text**: PyMuPDF for a usable text layer · Tesseract `ben+eng` at 200 dpi for
+   everything else: scans, garbled or junk text layers, and Bijoy (ADR-005, ADR-006).
 4. **Normalise**: Bangla→ASCII digits, Bangla month names → ISO dates, whitespace cleanup.
 5. **Chunk**: by heading or paragraph, about 300–500 tokens; **each table row is its own
    chunk** tagged with its post; keep the page number.
@@ -217,11 +217,12 @@ Free-tier limits change; re-check every quota before deploying.
 
 ## 10. Open items (resolve during Phase 1)
 1. Repo location: new folder on the owner's Mac vs cloud workspace + GitHub `Yeamin-HS`.
-2. Bijoy→Unicode converter: pick a library or write a mapping table (Story 1.3).
-3. OCR engine: Tesseract `ben` vs a stronger option that fits within 512 MB (Story 1.3).
-4. Which Groq-hosted model handles Bangla best; benchmark 2 candidates (Story 1.3).
-5. Does embedding + OCR fit Render's free RAM? If not: lazy-load models, or run OCR in a
-   separate free service.
+2. Bijoy→Unicode converter: resolved for v1 by ADR-006 (Bijoy goes through OCR; revisit
+   with real Bijoy circulars).
+3. OCR engine: resolved by ADR-005 (Tesseract `ben+eng`, 200 dpi).
+4. Which Groq-hosted model handles Bangla best: still open, needs a Groq key (ADR-007).
+5. Does embedding + OCR fit Render's free RAM? OCR does (ADR-008); the embedding model is
+   not measured yet.
 6. JWT storage: an in-memory token means signing in again after refresh. localStorage carries
    XSS risk (mitigated with a strict CSP). Cross-site cookies (Vercel ↔ Render) can be blocked
    by Safari. Decide in Story 2.1.

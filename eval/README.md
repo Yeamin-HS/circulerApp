@@ -8,6 +8,7 @@ Real Bangladeshi job circulars and their ground-truth fact cards (Story 1.2).
 - `labels/<id>.json` holds one ground-truth label per circular.
 - `python eval/corpus.py check` validates every label and prints corpus coverage.
 - `eval/spike.py` is the Story 1.3 format spike; its results are in `docs/SPIKE.md`.
+- `eval/agent_smoke.py` is the Story 1.4 prompt smoke test; its results are in `docs/AGENT.md` §7.
 
 ## Status
 

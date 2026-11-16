@@ -3,7 +3,7 @@
 Read this first. Update it at the end of every session, and before a session runs out of tokens.
 
 ## Current state
-- Active story: 1.4 Agent design (not started). 1.3 Format spike is done; one part stays open (embedding memory, ADR-008). 1.2 stays open on the owner's side (label verification, Bijoy samples).
+- Active story: 1.5 API contracts (not started). 1.4 Agent design is done. 1.3 has one part open (embedding memory, ADR-008). 1.2 stays open on the owner's side (label verification, Bijoy samples).
 - Last tool used: Claude Code
 - Last updated: 2026-11-17
 - Branch: main
@@ -12,12 +12,13 @@ Read this first. Update it at the end of every session, and before a session run
 ## Next 3 actions
 1. Owner: check each `eval/labels/*.json` against its PDF, fix errors, set `"verified": true`
 2. Owner: add at least 2 Bijoy/SutonnyMJ circulars (none found on the 71 gov.bd sites swept) with labels; then Story 1.2 closes
-3. Story 1.4: draft the agent state diagram and prompts (ARCHITECTURE §6), using the ADR-007 consequences
+3. Story 1.5: freeze Pydantic schemas and the endpoint list; include the points in docs/AGENT.md §8 and the per-post `age_limit` / `apply_mode` finding from Story 1.2
 4. Before Story 3.1: measure the embedding model's memory (ADR-008); needs the model files, which the owner declined to download during the spike
 
 ## Done (newest first)
 | Date | Tool | Story | What changed | Files |
 |---|---|---|---|---|
+| 2026-11-17 | Claude Code | 1.4 | Agent design: state diagram, states, call and token budgets, data shapes; prompts for route, draft, critique, revise and subject check; smoke test on Groq passes 10/10 questions, critic 1/1, subject 3/3 after one round of prompt fixes. Local only, not committed | `docs/AGENT.md`, `backend/app/agent/prompts.py`, `backend/tests/test_prompts.py`, `eval/agent_smoke.py`, `_context/decisions/ADR-009-agent-budget-and-roles.md`, `docs/ARCHITECTURE.md` |
 | 2026-11-17 | Claude Code | 1.3 | Groq benchmark on the 3 chat models the free key offers: `qwen/qwen3.8-27b` 91%, `gpt-oss-120b` 87%, `gpt-oss-20b` 83% of fields; production model chosen (ADR-007). Spike script gained Groq retry on 429. Local only, not committed | `eval/spike.py`, `docs/SPIKE.md`, `_context/decisions/ADR-007-llm-models.md`, `docs/ARCHITECTURE.md` |
 | 2026-11-16 | Claude Code | 1.3 | Format spike: type detection 15/15; Tesseract 200 dpi recovers 98% of labelled facts on scans; Bijoy routed through OCR; local LLMs benchmarked (best `gemma3:4b`, 60% of fields); memory measured except embeddings. Results in docs/SPIKE.md. Local only, not committed | `eval/spike.py`, `docs/SPIKE.md`, `_context/decisions/ADR-005..008`, `backend/pyproject.toml` (`spike` extra), `docs/ARCHITECTURE.md`, `eval/README.md` |
 | 2026-11-16 | Claude Code | 1.2 | 15 real circulars downloaded from official gov.bd sites (3 digital, 12 scanned, 8 multi-post, 2 English); draft fact-card label per circular; label checker + re-download script; label format documented. Local only, not committed | `eval/labels/*.json`, `eval/corpus.py`, `eval/README.md`, `eval/circulars/*.pdf` (gitignored) |
@@ -25,13 +26,15 @@ Read this first. Update it at the end of every session, and before a session run
 | 2026-11-16 | Claude Code | 1.1 | Repo skeleton: backend package folders, FastAPI app with `/health` + test, Vite React-TS app (demo content trimmed), eval folders + stub runner, `.env.example`, `.gitignore`, CI lint workflow; first commit pushed to GitHub | `backend/`, `frontend/`, `eval/`, `.env.example`, `.gitignore`, `.github/workflows/lint.yml` |
 
 ## In progress / half-done
-- Story 1.3 work is uncommitted: the owner adds, commits and pushes manually.
+- Story 1.4 work is uncommitted: the owner adds, commits and pushes manually.
 - ADR-008 (embedding memory) has an open part; see "Next actions".
 - All 15 labels are AI drafts (`"verified": false`). They are not ground truth until the owner checks them.
 - `eval/run_eval.py` is an intentional stub (exits 1) until Increment 1.
 
 ## Known issues / blockers
 - Corpus gap: 0 Bijoy circulars (target ≥ 2). `python eval/corpus.py check` reports it as `GAP`.
+- Agent capacity on the free tier is about 2 questions per minute and under 1,000 a day for the whole app (docs/AGENT.md §5): enough for a demo only.
+- The agent smoke test is 14 hand-picked checks on 2 circulars with stand-in retrieval; it does not prove NFR-02.
 - Groq free tier: about 8,000 tokens per minute per model. A long circular nearly fills it and one request got HTTP 413. Story 3.2 must split extraction into smaller calls and retry on 429.
 - Local models are for wiring only (best `gemma3:4b`: 73% digital, 57% scanned); judge accuracy on the Groq model.
 - All spike scores are against unverified draft labels.
@@ -41,6 +44,8 @@ Read this first. Update it at the end of every session, and before a session run
 - pytest prints a Starlette deprecation warning about `httpx` in the test client; harmless for now.
 
 ## Decisions made this session
+- ADR-009 one Groq model per agent role (route `gpt-oss-20b`, draft/revise `qwen3.8-27b`, critique `gpt-oss-120b`), token cap per call, Python citation lint before critique, fact-card fast path.
+- Agent budget: ARCHITECTURE said 5 calls and 2 revisions, which cannot both be used in full (7 calls); kept the 5-call cap (docs/AGENT.md §4).
 - ADR-005 Tesseract `ben+eng` at 200 dpi, no OpenCV · ADR-006 Bijoy through OCR (provisional) · ADR-007 `qwen/qwen3.8-27b` on Groq for production (fallback `openai/gpt-oss-120b`), `gemma3:4b` for dev · ADR-008 memory plan, embedding part open.
 - Owner rule: no model downloads from Hugging Face without asking first.
 - Owner rule: commit messages carry no `Co-Authored-By` AI trailer (keeps AI tools out of the GitHub contributors list).
@@ -59,6 +64,7 @@ Read this first. Update it at the end of every session, and before a session run
 - Frontend checks: `cd frontend && npm run lint && npm run build`
 - Eval corpus: `python eval/corpus.py check` validates labels; `python eval/corpus.py fetch` re-downloads the gitignored PDFs. Format: `eval/README.md`.
 - Spike: needs `brew install tesseract tesseract-lang` and `pip install -e "backend[spike]"`; commands in docs/SPIKE.md §7. Ollama models present: `gemma3:4b`, `qwen2.5:3b`, `llama3.2:3b`.
+- Agent prompt smoke test: `set -a; source .env; set +a; python eval/agent_smoke.py` (needs `eval/results/text/` from `python eval/spike.py text`).
 - Eval run: not implemented yet (`eval/run_eval.py` is a stub).
 - GitHub contributors sidebar may still show Claude from a cached view; the API lists only the owner and no commit carries a co-author line.
 - CI: `.github/workflows/lint.yml` runs the backend and frontend checks on push to main and on PRs.

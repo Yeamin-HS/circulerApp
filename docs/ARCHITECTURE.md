@@ -147,6 +147,9 @@ yes / no / unclear plus a quote. Overall verdict: any `fail` → not eligible; a
 
 ## 6. Agent loop (hand-written)
 
+This is the overview. The detailed design (states, budgets, data shapes, prompts and their
+smoke test) is in docs/AGENT.md.
+
 ```
 question
   │
@@ -167,12 +170,13 @@ CRITIQUE (1 LLM call, JSON): for each sentence → supported / unsupported + rea
   └─ still failing → ABSTAIN: "This isn't clearly stated in the circular." + best citations
 ```
 
-- Budget: normally 3 calls (route, draft, critique), at most 5 with 2 revisions.
-  The router can be replaced by a keyword classifier if the call budget gets tight.
+- Budget: normally 3 calls (route, draft, critique); hard cap 5 calls and 2 revisions,
+  whichever comes first (docs/AGENT.md §4). Each role uses its own Groq model with a token
+  cap per call (ADR-009).
 - Streaming: the draft streams to the UI, which marks it "verifying…". If the critique
   rejects it, the UI replaces the text with the revised answer.
 - Cache: in-memory LRU keyed on (circular_id, normalised question, profile_version).
-- Injection defence: retrieved text is wrapped in `<document>` tags, and the system prompt
+- Injection defence: every source is wrapped in `<source id="...">` tags, and each prompt
   says content inside them is data only.
 
 ## 7. API contracts (v1)

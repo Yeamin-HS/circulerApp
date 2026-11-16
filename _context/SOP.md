@@ -57,5 +57,6 @@ them costs missed deadlines or wasted non-refundable application fees.
   labels and adds at least 2 Bijoy circulars
 - Story 1.3: done, results in docs/SPIKE.md, ADR-005 to ADR-008. Open part: embedding
   memory (needs the model files, ADR-008)
-- Next step: Story 1.4 (agent design)
+- Story 1.4: done, design in docs/AGENT.md, prompts in backend/app/agent/prompts.py, ADR-009
+- Next step: Story 1.5 (API contracts)
 - Open questions: see "Open items" at the end of docs/ARCHITECTURE.md

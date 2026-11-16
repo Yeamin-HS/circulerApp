@@ -220,7 +220,8 @@ Free-tier limits change; re-check every quota before deploying.
 2. Bijoy→Unicode converter: resolved for v1 by ADR-006 (Bijoy goes through OCR; revisit
    with real Bijoy circulars).
 3. OCR engine: resolved by ADR-005 (Tesseract `ben+eng`, 200 dpi).
-4. Which Groq-hosted model handles Bangla best: still open, needs a Groq key (ADR-007).
+4. Which Groq-hosted model handles Bangla best: resolved by ADR-007 (`qwen/qwen3.8-27b`,
+   fallback `openai/gpt-oss-120b`).
 5. Does embedding + OCR fit Render's free RAM? OCR does (ADR-008); the embedding model is
    not measured yet.
 6. JWT storage: an in-memory token means signing in again after refresh. localStorage carries

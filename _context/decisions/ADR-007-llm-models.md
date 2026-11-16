@@ -1,20 +1,32 @@
-# ADR-007: `gemma3:4b` for local development; production model still to be chosen
-Status: accepted for dev; production part open · 2026-11-16
+# ADR-007: `qwen/qwen3.8-27b` on Groq for production, `gemma3:4b` on Ollama for development
+Status: accepted · 2026-11-17 (dev part 2026-11-16)
 Decision:
-1. The default Ollama model for local development is `gemma3:4b`.
-2. No 3–4 B local model is good enough to judge the product by. Accuracy targets (NFR-03)
-   are measured only on the production model.
-3. The production (Groq) model is **not chosen yet**. It will be picked by running
-   `python eval/spike.py llm groq:<model-a> groq:<model-b>` on the same 15 circulars and
-   taking the higher field accuracy, with valid-JSON rate as the tie-breaker.
-Why (docs/SPIKE.md §4): on fact-card extraction from the 15 test circulars `gemma3:4b`
-got 60% of fields right and always returned valid JSON. `qwen2.5:3b` got 25% (valid JSON
-11/15, and it hung once in an endless-whitespace loop until output was capped).
-`llama3.2:3b` got 22% (13/15). A more detailed prompt with Bangla degree hints and a larger
-context did not help `gemma3:4b` (55%), so the limit is model capacity, not prompt wording.
-Consequences for Story 3.2: do not rely on one big extraction call. Cap output tokens on
-every call. Take dates and URLs from the text with Python and let the LLM choose among
-them. Extract the post table separately from the header facts.
-Blocked on: a free `GROQ_API_KEY` from the owner. The list of free Groq models changes, so
-pick the two candidates from Groq's current model page at that time.
-Caveat: scores are against draft labels the owner has not verified yet.
+1. Production LLM: `qwen/qwen3.8-27b` on Groq's free tier. Fallback if it is withdrawn or
+   rate-limited: `openai/gpt-oss-120b`.
+2. Local development default: `gemma3:4b` on Ollama. It is for wiring and debugging only;
+   accuracy targets (NFR-03) are measured on the production model.
+3. The model name is configuration, not code, so it can change without a release.
+Why (docs/SPIKE.md §5): fact-card extraction on the 15 test circulars, 9 fields each.
+
+| Model | Fields right | Scanned | Digital | Valid JSON | Median time |
+|---|---|---|---|---|---|
+| `qwen/qwen3.8-27b` (Groq) | 91% | 92% | 90% | 15/15 | 1.0 s |
+| `openai/gpt-oss-120b` (Groq) | 87% | 85% | 94% | 15/15 | 2.4 s |
+| `openai/gpt-oss-20b` (Groq) | 83% | 81% | 90% | 14/15 | 2.0 s |
+| `gemma3:4b` (Ollama) | 60% | 57% | 73% | 15/15 | 10 s |
+
+These were the only three chat models the free key could use. The top two both clear the
+proposed targets (85% digital, 70% scanned); `qwen/qwen3.8-27b` is ahead on scanned files,
+which are most of real circulars, and is the fastest. The 4-point gap between the top two is
+within what one run on 15 files can show, hence the named fallback. The local 3 B models
+scored 22–25%, and a more detailed prompt did not help `gemma3:4b` (55%).
+Consequences for Story 3.2:
+- Groq's free tier allows about 8,000 tokens per minute per model. One long circular uses
+  most of that, and `gpt-oss-20b` rejected one file as too large. Extraction must send the
+  circular in parts (header facts, then the post table) and retry on HTTP 429.
+- Cap output tokens on every call (`qwen2.5:3b` ran away in JSON mode).
+- Validate `apply_link` against the document text: models returned the organisation's home
+  page or an OCR-damaged URL in 3–7 of 15 files.
+Caveats: one run, 15 files, draft labels not yet verified by the owner. Free-tier models
+and limits change; re-check before launch (ARCHITECTURE §8).
+Revisit if: the chosen model leaves the free tier, or verified labels change the ranking.

@@ -1,6 +1,6 @@
 # Format spike — results (Story 1.3)
 
-Run on 2026-11-16 with `eval/spike.py` over the 15 test circulars in `eval/circulars`
+Run on 2026-11-16 (Groq models on 2026-11-17) with `eval/spike.py` over the 15 test circulars in `eval/circulars`
 (43 pages: 12 scanned, 3 digital, 0 Bijoy). Machine: Apple Silicon Mac, 16 GB.
 Raw outputs are in `eval/results/` (gitignored).
 
@@ -15,10 +15,10 @@ not verified yet. Treat the numbers as indicative, not final.
 | Is Tesseract good enough for scanned Bangla circulars? | Yes: 98% of labelled facts recovered (fuzzy), 85% exact | ADR-005 |
 | Which OCR settings? | 200 dpi, default segmentation, no OpenCV step | ADR-005 |
 | How do we handle Bijoy? | Through OCR for now; the PyPI converter is not accurate enough | ADR-006 (provisional) |
-| Which LLM? | `gemma3:4b` for dev (60% of fields); production model not chosen | ADR-007 (part open) |
+| Which LLM? | Production: `qwen/qwen3.8-27b` on Groq (91% of fields). Dev: `gemma3:4b` on Ollama (60%) | ADR-007 |
 | Does it fit in 512 MB? | Server + one OCR page ≈ 230 MB; embedding model not measured | ADR-008 (part open) |
 
-Still open after this spike: the production LLM (needs a Groq key), the embedding model's
+Still open after this spike: the embedding model's
 memory (needs the model files), Bijoy on real circulars (needs samples), and OCR speed on
 Render's CPU.
 
@@ -110,33 +110,44 @@ Bijoy circulars.
 Each model got the best available text (PyMuPDF for c02/c03, Tesseract 200 dpi for the
 rest) and one request for a JSON fact card. Nine fields were scored against the label:
 organisation, deadline, age limit, age reference date, apply link, post count, post titles,
-vacancies and minimum degree. Only local Ollama models were tested; no Groq key was
-available.
+vacancies and minimum degree. The Groq models are the three chat models the owner's free
+key could use.
 
 | Model | Valid JSON | All 15 | Scanned 12 | Digital 3 | Median time | Slowest |
 |---|---|---|---|---|---|---|
-| **gemma3:4b** | 15/15 | **0.60** | 0.57 | 0.73 | 10 s | 26 s |
+| **qwen/qwen3.8-27b (Groq)** | 15/15 | **0.91** | 0.92 | 0.90 | 1.0 s | 2.5 s |
+| openai/gpt-oss-120b (Groq) | 15/15 | 0.87 | 0.85 | 0.94 | 2.4 s | 5.6 s |
+| openai/gpt-oss-20b (Groq) | 14/15 | 0.83 | 0.81 | 0.90 | 2.0 s | 4.0 s |
+| gemma3:4b | 15/15 | 0.60 | 0.57 | 0.73 | 10 s | 26 s |
 | qwen2.5:3b | 11/15 | 0.25 | 0.17 | 0.59 | 12 s | 24 s |
 | llama3.2:3b | 13/15 | 0.22 | 0.14 | 0.56 | 9 s | 22 s |
 | gemma3:4b, detailed prompt (v2) | 15/15 | 0.55 | 0.50 | 0.74 | 10 s | 29 s |
 
 Accuracy per field (all 15 files):
 
-| Field | gemma3:4b | qwen2.5:3b | llama3.2:3b | gemma3:4b v2 |
-|---|---|---|---|---|
-| organisation | 1.00 | 0.33 | 0.33 | 1.00 |
-| post titles | 0.81 | 0.31 | 0.29 | 0.81 |
-| age limit | 0.80 | 0.40 | 0.33 | 0.53 |
-| post count | 0.73 | 0.33 | 0.33 | 0.60 |
-| vacancies | 0.68 | 0.09 | 0.20 | 0.75 |
-| deadline | 0.40 | 0.27 | 0.07 | 0.27 |
-| apply link | 0.40 | 0.20 | 0.13 | 0.40 |
-| age reference date | 0.33 | 0.20 | 0.13 | 0.33 |
-| minimum degree | 0.27 | 0.15 | 0.16 | 0.25 |
+| Field | qwen3.8-27b | gpt-oss-120b | gpt-oss-20b | gemma3:4b | qwen2.5:3b | llama3.2:3b | gemma3:4b v2 |
+|---|---|---|---|---|---|---|---|
+| organisation | 1.00 | 1.00 | 0.93 | 1.00 | 0.33 | 0.33 | 1.00 |
+| deadline | 1.00 | 1.00 | 0.93 | 0.40 | 0.27 | 0.07 | 0.27 |
+| age limit | 0.93 | 1.00 | 0.93 | 0.80 | 0.40 | 0.33 | 0.53 |
+| age reference date | 0.93 | 0.93 | 0.80 | 0.33 | 0.20 | 0.13 | 0.33 |
+| post count | 0.93 | 0.93 | 0.93 | 0.73 | 0.33 | 0.33 | 0.60 |
+| post titles | 0.93 | 0.91 | 0.86 | 0.81 | 0.31 | 0.29 | 0.81 |
+| minimum degree | 0.87 | 0.81 | 0.78 | 0.27 | 0.15 | 0.16 | 0.25 |
+| vacancies | 0.83 | 0.64 | 0.75 | 0.68 | 0.09 | 0.20 | 0.75 |
+| apply link | 0.80 | 0.60 | 0.53 | 0.40 | 0.20 | 0.13 | 0.40 |
 
 What this shows:
-- No local model meets the proposed targets (NFR-03: 85% digital, 70% scanned). The best
-  is 73% and 57%.
+- The two larger Groq models clear the proposed targets (NFR-03: 85% digital, 70% scanned)
+  with the plain v1 prompt. `qwen/qwen3.8-27b` leads on scanned files and is the fastest.
+- The weakest fields for the Groq models are apply link and vacancies. Link errors are
+  mostly the organisation's home page given as the link, or a URL copied with an OCR slip
+  (`http:/dyd.teletalk.com.bd`). One file prints two valid URLs and the label holds one,
+  so part of this is scoring strictness.
+- Groq's free tier allowed 8,000 tokens per minute for `gpt-oss-120b`. A long circular
+  uses most of that, and `gpt-oss-20b` rejected c13 as too large (HTTP 413). Extraction has
+  to be split into smaller calls.
+- No local model meets the targets. The best is 73% digital and 57% scanned.
 - `gemma3:4b` finds names (organisation, post titles) but is weak on dates and on mapping
   qualifications to a degree level; it often writes the pay grade as the degree
   ("Class 14").
@@ -144,7 +155,8 @@ What this shows:
   larger context. It did not help. Prompt wording is not the bottleneck at this model size.
 - `qwen2.5:3b` once produced output without end in JSON mode; every call needs an output
   token cap.
-- Median 10 s per circular on a Mac GPU is inside the 40 s target, before OCR time.
+- Speed: 1–2.4 s per circular on Groq, 10 s for `gemma3:4b` on a Mac GPU, before OCR time.
+- One run per model on 15 files: gaps of a few points between models are not reliable.
 
 Decision: ADR-007. Design consequences for Story 3.2 are listed there.
 
@@ -174,5 +186,7 @@ python eval/corpus.py fetch                    # restore the PDFs
 python eval/spike.py text                      # sections 2–3
 python eval/spike.py llm gemma3:4b             # section 5 (Ollama must be running)
 python eval/spike.py llm gemma3:4b --variant v2
+set -a; source .env; set +a                    # loads GROQ_API_KEY
+python eval/spike.py llm groq:qwen/qwen3.8-27b groq:openai/gpt-oss-120b
 python eval/spike.py ram                       # section 6
 ```

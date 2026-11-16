@@ -3,22 +3,22 @@
 Read this first. Update it at the end of every session, and before a session runs out of tokens.
 
 ## Current state
-- Active story: 1.4 Agent design (not started). 1.3 Format spike is done with two parts open (production LLM, embedding memory). 1.2 stays open on the owner's side (label verification, Bijoy samples).
+- Active story: 1.4 Agent design (not started). 1.3 Format spike is done; one part stays open (embedding memory, ADR-008). 1.2 stays open on the owner's side (label verification, Bijoy samples).
 - Last tool used: Claude Code
-- Last updated: 2026-11-16
+- Last updated: 2026-11-17
 - Branch: main
 - Remote: https://github.com/Yeamin-HS/circulerApp (public)
 
 ## Next 3 actions
 1. Owner: check each `eval/labels/*.json` against its PDF, fix errors, set `"verified": true`
 2. Owner: add at least 2 Bijoy/SutonnyMJ circulars (none found on the 71 gov.bd sites swept) with labels; then Story 1.2 closes
-3. Owner: add a free `GROQ_API_KEY` to `.env`, then run `python eval/spike.py llm groq:<a> groq:<b>` to choose the production model (ADR-007)
-4. Story 1.4: draft the agent state diagram and prompts (ARCHITECTURE §6), using the ADR-007 consequences
-5. Before Story 3.1: measure the embedding model's memory (ADR-008); needs the model files, which the owner declined to download during the spike
+3. Story 1.4: draft the agent state diagram and prompts (ARCHITECTURE §6), using the ADR-007 consequences
+4. Before Story 3.1: measure the embedding model's memory (ADR-008); needs the model files, which the owner declined to download during the spike
 
 ## Done (newest first)
 | Date | Tool | Story | What changed | Files |
 |---|---|---|---|---|
+| 2026-11-17 | Claude Code | 1.3 | Groq benchmark on the 3 chat models the free key offers: `qwen/qwen3.8-27b` 91%, `gpt-oss-120b` 87%, `gpt-oss-20b` 83% of fields; production model chosen (ADR-007). Spike script gained Groq retry on 429. Local only, not committed | `eval/spike.py`, `docs/SPIKE.md`, `_context/decisions/ADR-007-llm-models.md`, `docs/ARCHITECTURE.md` |
 | 2026-11-16 | Claude Code | 1.3 | Format spike: type detection 15/15; Tesseract 200 dpi recovers 98% of labelled facts on scans; Bijoy routed through OCR; local LLMs benchmarked (best `gemma3:4b`, 60% of fields); memory measured except embeddings. Results in docs/SPIKE.md. Local only, not committed | `eval/spike.py`, `docs/SPIKE.md`, `_context/decisions/ADR-005..008`, `backend/pyproject.toml` (`spike` extra), `docs/ARCHITECTURE.md`, `eval/README.md` |
 | 2026-11-16 | Claude Code | 1.2 | 15 real circulars downloaded from official gov.bd sites (3 digital, 12 scanned, 8 multi-post, 2 English); draft fact-card label per circular; label checker + re-download script; label format documented. Local only, not committed | `eval/labels/*.json`, `eval/corpus.py`, `eval/README.md`, `eval/circulars/*.pdf` (gitignored) |
 | 2026-11-16 | Claude Code | 1.1 | Added MIT licence; Story 1.1 closed | `LICENSE` |
@@ -26,13 +26,14 @@ Read this first. Update it at the end of every session, and before a session run
 
 ## In progress / half-done
 - Story 1.3 work is uncommitted: the owner adds, commits and pushes manually.
-- ADR-007 (production LLM) and ADR-008 (embedding memory) each have an open part; see "Next actions".
+- ADR-008 (embedding memory) has an open part; see "Next actions".
 - All 15 labels are AI drafts (`"verified": false`). They are not ground truth until the owner checks them.
 - `eval/run_eval.py` is an intentional stub (exits 1) until Increment 1.
 
 ## Known issues / blockers
 - Corpus gap: 0 Bijoy circulars (target ≥ 2). `python eval/corpus.py check` reports it as `GAP`.
-- No local model meets the NFR-03 accuracy targets (best: 73% digital, 57% scanned), and a more detailed prompt did not help. Targets can only be judged on the Groq model.
+- Groq free tier: about 8,000 tokens per minute per model. A long circular nearly fills it and one request got HTTP 413. Story 3.2 must split extraction into smaller calls and retry on 429.
+- Local models are for wiring only (best `gemma3:4b`: 73% digital, 57% scanned); judge accuracy on the Groq model.
 - All spike scores are against unverified draft labels.
 - OCR speed on Render's CPU is unmeasured (2.2 s/page on the Mac).
 - For Story 3.1/3.2: OCR loses table columns; exact quote matching will fail on OCR text (use fuzzy matching); `c05` page 2 is a different notice with its own post table.
@@ -40,7 +41,7 @@ Read this first. Update it at the end of every session, and before a session run
 - pytest prints a Starlette deprecation warning about `httpx` in the test client; harmless for now.
 
 ## Decisions made this session
-- ADR-005 Tesseract `ben+eng` at 200 dpi, no OpenCV · ADR-006 Bijoy through OCR (provisional) · ADR-007 `gemma3:4b` for dev, production model open · ADR-008 memory plan, embedding part open.
+- ADR-005 Tesseract `ben+eng` at 200 dpi, no OpenCV · ADR-006 Bijoy through OCR (provisional) · ADR-007 `qwen/qwen3.8-27b` on Groq for production (fallback `openai/gpt-oss-120b`), `gemma3:4b` for dev · ADR-008 memory plan, embedding part open.
 - Owner rule: no model downloads from Hugging Face without asking first.
 - Owner rule: commit messages carry no `Co-Authored-By` AI trailer (keeps AI tools out of the GitHub contributors list).
 - Minor, no ADR: plain `venv` + `pip` with setuptools (no `uv`); `ruff` for Python lint/format.
@@ -48,7 +49,8 @@ Read this first. Update it at the end of every session, and before a session run
 - `eval/circulars/*` and `eval/results/*` are gitignored (ARCHITECTURE §2: licence unclear).
 
 ## Environment notes
-- Required env vars: see .env.example
+- Required env vars: see .env.example. Real values go in `.env` only (gitignored); never in `.env.example`. A `.env` with the owner's Groq key exists locally.
+- Spike with Groq: `set -a; source .env; set +a` first; the script reads `GROQ_API_KEY` from the shell.
 - Python: use `/opt/homebrew/bin/python3.11` (system `python3` is 3.9, too old).
 - Backend setup: `cd backend && python3.11 -m venv .venv && .venv/bin/pip install -e ".[dev]"`
 - Backend run: `cd backend && .venv/bin/uvicorn app.main:app --reload` → http://localhost:8000/health

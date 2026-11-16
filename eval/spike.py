@@ -18,6 +18,7 @@ import sys
 import tempfile
 import time
 import unicodedata
+import urllib.error
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
@@ -297,8 +298,10 @@ def chat(model: str, document: str, variant: str = "v1") -> tuple[str, float]:
             "messages": messages,
             "temperature": 0,
             "response_format": {"type": "json_object"},
+            "max_completion_tokens": 8000,  # reasoning models spend tokens before the JSON
         }
-        headers = {"Authorization": f"Bearer {os.environ['GROQ_API_KEY']}"}
+        key = os.environ["GROQ_API_KEY"]
+        headers = {"Authorization": f"Bearer {key}", "User-Agent": "circular-spike/0.1"}
     else:
         url = os.environ.get("OLLAMA_BASE_URL", "http://localhost:11434") + "/api/chat"
         # num_predict caps runaway output: qwen2.5:3b can emit whitespace forever in JSON mode.
@@ -314,8 +317,15 @@ def chat(model: str, document: str, variant: str = "v1") -> tuple[str, float]:
     request = urllib.request.Request(
         url, json.dumps(body).encode(), {"Content-Type": "application/json", **headers}
     )
-    start = time.perf_counter()
-    reply = json.load(urllib.request.urlopen(request, timeout=600))
+    for attempt in range(8):
+        start = time.perf_counter()
+        try:
+            reply = json.load(urllib.request.urlopen(request, timeout=600))
+            break
+        except urllib.error.HTTPError as exc:
+            if exc.code != 429 or attempt == 7:  # only free-tier rate limits are retried
+                raise OSError(f"HTTP {exc.code}: {exc.read().decode()[:300]}") from exc
+            time.sleep(min(90.0, float(exc.headers.get("Retry-After") or 20) + 1))
     seconds = time.perf_counter() - start
     message = reply["choices"][0]["message"] if "choices" in reply else reply["message"]
     return message["content"], seconds

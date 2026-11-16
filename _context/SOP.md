@@ -33,7 +33,8 @@ them costs missed deadlines or wasted non-refundable application fees.
 - Frontend: React + TypeScript + Vite → Vercel (free)
 - Backend: FastAPI (Python 3.11+) → Render free web service
 - DB + vectors: Neon Postgres (free) with pgvector
-- LLM: Ollama locally (dev) / Groq free tier (prod), behind one `LLMClient` interface
+- LLM: Ollama `gemma3:4b` locally (dev) / Groq `qwen/qwen3.8-27b` free tier (prod), behind
+  one `LLMClient` interface (ADR-007)
 - Embeddings: `intfloat/multilingual-e5-small` (384-dim) on CPU
 - OCR: Tesseract `ben+eng` at 200 dpi (ADR-005); Bijoy files also go through OCR (ADR-006)
 - Auth: own implementation in FastAPI (argon2 + JWT bearer), ADR-001
@@ -51,10 +52,10 @@ them costs missed deadlines or wasted non-refundable application fees.
 ## Current phase / status
 - Phase: 1 — Initiation & Architecture (repo skeleton in place: empty FastAPI app with
   `/health`, Vite React-TS app, CI lint job; no feature code yet)
-- Last updated: 2026-11-16
+- Last updated: 2026-11-17
 - Story 1.2: 15 circulars collected with draft labels; open until the owner verifies the
   labels and adds at least 2 Bijoy circulars
-- Story 1.3: done, results in docs/SPIKE.md, ADR-005 to ADR-008. Open parts: production
-  LLM (needs a Groq key) and embedding memory (needs the model files)
+- Story 1.3: done, results in docs/SPIKE.md, ADR-005 to ADR-008. Open part: embedding
+  memory (needs the model files, ADR-008)
 - Next step: Story 1.4 (agent design)
 - Open questions: see "Open items" at the end of docs/ARCHITECTURE.md

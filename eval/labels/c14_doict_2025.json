@@ -1,0 +1,37 @@
+{
+  "id": "c14_doict_2025",
+  "file": "c14_doict_2025.pdf",
+  "source_url": "https://objectstorage.ap-dcc-gazipur-1.oraclecloud15.com/n/axvjbnqprylg/b/V2Ministry/o/office-ictd/2024/12/f6baacbc0c1d4614a325183129a126f4.pdf",
+  "sha256": "539e92090f34fe2a5c9ef11e83ab29da51988f16507f969bcae5b9422427f520",
+  "pages": 4,
+  "source_type": "scanned",
+  "text_layer": "none",
+  "language": "bn",
+  "multi_post": false,
+  "verified": false,
+  "labelled_by": "claude-draft",
+  "notes": [
+    "Single post with a large vacancy count. Age 18-32."
+  ],
+  "fact_card": {
+    "organisation": "তথ্য ও যোগাযোগ প্রযুক্তি অধিদপ্তর",
+    "posts": [
+      {
+        "title": "অফিস সহায়ক",
+        "vacancies": 497,
+        "min_degree": "SSC",
+        "subjects": null,
+        "min_result": null,
+        "experience_years": null,
+        "age_limit": null
+      }
+    ],
+    "deadline": "2025-09-17",
+    "age_limit": 32,
+    "age_as_of": "2025-08-18",
+    "fee": "56",
+    "apply_mode": "online",
+    "how_to_apply": "Online only via the Teletalk portal; fee paid by Teletalk prepaid SMS within 72 hours of submitting.",
+    "apply_link": "http://doict.teletalk.com.bd"
+  }
+}

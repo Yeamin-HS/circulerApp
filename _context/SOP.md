@@ -52,5 +52,7 @@ them costs missed deadlines or wasted non-refundable application fees.
 - Phase: 1 — Initiation & Architecture (repo skeleton in place: empty FastAPI app with
   `/health`, Vite React-TS app, CI lint job; no feature code yet)
 - Last updated: 2026-11-16
-- Next step: Story 1.2 (collect test circulars)
+- Story 1.2: 15 circulars collected with draft labels; open until the owner verifies the
+  labels and adds at least 2 Bijoy circulars
+- Next step: owner verifies labels → Story 1.3 (format spike)
 - Open questions: see "Open items" at the end of docs/ARCHITECTURE.md

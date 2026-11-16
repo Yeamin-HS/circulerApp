@@ -1,0 +1,197 @@
+{
+  "id": "c01_bim_2022",
+  "file": "c01_bim_2022.pdf",
+  "source_url": "https://objectstorage.ap-dcc-gazipur-1.oraclecloud15.com/n/axvjbnqprylg/b/V2Ministry/o/office-bim/2024/12/3c56886b8de847449018648320aca7f5.pdf",
+  "sha256": "e22061e198bd9b357f7599de37ba5a58e321496c5b181be8a04a40c30db0b782",
+  "pages": 2,
+  "source_type": "digital",
+  "text_layer": "garbled_unicode",
+  "language": "bn",
+  "multi_post": true,
+  "verified": false,
+  "labelled_by": "claude-draft",
+  "notes": [
+    "PDF has a Unicode text layer, but PyMuPDF extraction is garbled (vowel signs dropped or reordered, Nikosh font). Treat as a hard 'digital' case.",
+    "Age limit differs per post (32 for posts 1-3, 30 for the rest), so the top-level age_limit is null.",
+    "Post 2 (Programmer) prints the same qualification text as post 1; labelled as printed.",
+    "Electrician: 3 years with a 1-year trade certificate, or 2 years with the trade course; labelled with the lower figure.",
+    "17 posts, 30 vacancies in total."
+  ],
+  "fact_card": {
+    "organisation": "বাংলাদেশ ইনস্টিটিউট অব ম্যানেজমেন্ট",
+    "posts": [
+      {
+        "title": "ব্যবস্থাপনা উপদেষ্টা",
+        "vacancies": 10,
+        "min_degree": "Masters",
+        "subjects": [
+          "বাণিজ্য",
+          "ব্যবসা প্রশাসন",
+          "সমাজ বিজ্ঞান",
+          "বিজ্ঞান"
+        ],
+        "min_result": "2nd class",
+        "experience_years": 5,
+        "age_limit": 32
+      },
+      {
+        "title": "প্রোগ্রামার",
+        "vacancies": 1,
+        "min_degree": "Masters",
+        "subjects": [
+          "বাণিজ্য",
+          "ব্যবসা প্রশাসন",
+          "সমাজ বিজ্ঞান",
+          "বিজ্ঞান"
+        ],
+        "min_result": "2nd class",
+        "experience_years": 5,
+        "age_limit": 32
+      },
+      {
+        "title": "ঊর্ধ্বতন সম্পাদক",
+        "vacancies": 1,
+        "min_degree": "Masters",
+        "subjects": [
+          "সাংবাদিকতা"
+        ],
+        "min_result": "2nd class",
+        "experience_years": 5,
+        "age_limit": 32
+      },
+      {
+        "title": "প্রধান সহকারী",
+        "vacancies": 1,
+        "min_degree": "Bachelor",
+        "subjects": null,
+        "min_result": "2nd class",
+        "experience_years": 5,
+        "age_limit": 30
+      },
+      {
+        "title": "কম্পিউটার অপারেটর",
+        "vacancies": 1,
+        "min_degree": "Bachelor",
+        "subjects": null,
+        "min_result": null,
+        "experience_years": null,
+        "age_limit": 30
+      },
+      {
+        "title": "সাঁটলিপিকার কাম কম্পিউটার অপারেটর",
+        "vacancies": 2,
+        "min_degree": "HSC",
+        "subjects": null,
+        "min_result": null,
+        "experience_years": null,
+        "age_limit": 30
+      },
+      {
+        "title": "উচ্চমান সহকারী",
+        "vacancies": 1,
+        "min_degree": "HSC",
+        "subjects": null,
+        "min_result": "2nd division",
+        "experience_years": 3,
+        "age_limit": 30
+      },
+      {
+        "title": "প্রজেক্টর অপারেটর",
+        "vacancies": 1,
+        "min_degree": "HSC",
+        "subjects": null,
+        "min_result": "2nd division",
+        "experience_years": 5,
+        "age_limit": 30
+      },
+      {
+        "title": "ইলেকট্রিশিয়ান",
+        "vacancies": 3,
+        "min_degree": "Class 8",
+        "subjects": null,
+        "min_result": null,
+        "experience_years": 2,
+        "age_limit": 30
+      },
+      {
+        "title": "এলডিএ-কাম-কম্পিউটার অপারেটর",
+        "vacancies": 1,
+        "min_degree": "HSC",
+        "subjects": null,
+        "min_result": null,
+        "experience_years": null,
+        "age_limit": 30
+      },
+      {
+        "title": "ফটোগ্রাফার",
+        "vacancies": 1,
+        "min_degree": "SSC",
+        "subjects": null,
+        "min_result": null,
+        "experience_years": null,
+        "age_limit": 30
+      },
+      {
+        "title": "প্লাম্বার",
+        "vacancies": 1,
+        "min_degree": "SSC",
+        "subjects": null,
+        "min_result": null,
+        "experience_years": null,
+        "age_limit": 30
+      },
+      {
+        "title": "বাবুর্চি (পাচক)",
+        "vacancies": 1,
+        "min_degree": "Class 8",
+        "subjects": null,
+        "min_result": null,
+        "experience_years": 5,
+        "age_limit": 30
+      },
+      {
+        "title": "মশালচি",
+        "vacancies": 1,
+        "min_degree": "Class 8",
+        "subjects": null,
+        "min_result": null,
+        "experience_years": null,
+        "age_limit": 30
+      },
+      {
+        "title": "হেলপার",
+        "vacancies": 1,
+        "min_degree": "SSC",
+        "subjects": null,
+        "min_result": null,
+        "experience_years": null,
+        "age_limit": 30
+      },
+      {
+        "title": "মালী",
+        "vacancies": 1,
+        "min_degree": "Class 8",
+        "subjects": null,
+        "min_result": null,
+        "experience_years": null,
+        "age_limit": 30
+      },
+      {
+        "title": "পরিচ্ছন্ন কর্মী (ঝাড়ুদার)",
+        "vacancies": 2,
+        "min_degree": "Class 8",
+        "subjects": null,
+        "min_result": null,
+        "experience_years": null,
+        "age_limit": 30
+      }
+    ],
+    "deadline": "2022-07-31",
+    "age_limit": null,
+    "age_as_of": "2022-07-01",
+    "fee": "500 (posts 1-3); 300 (posts 4-17); pay order or bank draft",
+    "apply_mode": "post_or_in_person",
+    "how_to_apply": "Written application on plain paper to the Director General, BIM, 4 Sobhanbag, Mirpur Road, Dhaka-1207, by registered post or in person.",
+    "apply_link": null
+  }
+}

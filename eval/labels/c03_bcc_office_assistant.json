@@ -1,0 +1,38 @@
+{
+  "id": "c03_bcc_office_assistant",
+  "file": "c03_bcc_office_assistant.pdf",
+  "source_url": "https://objectstorage.ap-dcc-gazipur-1.oraclecloud15.com/n/axvjbnqprylg/b/V2Ministry/o/office-bcc/2026/1/ddf0afe3-f877-4c1a-8967-7d5fd1beeb57.pdf",
+  "sha256": "ae495ab7cec67a7b0b2541e6db74673e4d0bf0c35dfceb46c7d887e5d5a5067e",
+  "pages": 1,
+  "source_type": "digital",
+  "text_layer": "unicode",
+  "language": "en",
+  "multi_post": false,
+  "verified": false,
+  "labelled_by": "claude-draft",
+  "notes": [
+    "English, single post. No vacancy count, age limit or fee is stated.",
+    "The extracted text starts with the footer ('Contact: ...') before the title: reading order is off."
+  ],
+  "fact_card": {
+    "organisation": "JICA-BCC-BASIS TCP (Project for ICT Engineers Development for the Promotion of the ICT Industry and New Innovations)",
+    "posts": [
+      {
+        "title": "Office Assistant",
+        "vacancies": null,
+        "min_degree": "HSC",
+        "subjects": null,
+        "min_result": null,
+        "experience_years": null,
+        "age_limit": null
+      }
+    ],
+    "deadline": "2026-02-24",
+    "age_limit": null,
+    "age_as_of": null,
+    "fee": null,
+    "apply_mode": "email_or_in_person",
+    "how_to_apply": "Send an updated CV (with expected salary) and a photo to jica.bcc.basis@outlook.com, or apply in person within office hours, by 3:30 PM on the deadline.",
+    "apply_link": null
+  }
+}

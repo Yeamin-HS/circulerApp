@@ -1,0 +1,65 @@
+{
+  "id": "c06_brdb_2017",
+  "file": "c06_brdb_2017.pdf",
+  "source_url": "https://objectstorage.ap-dcc-gazipur-1.oraclecloud15.com/n/axvjbnqprylg/b/V2Ministry/o/office-brdb/2024/12/09e54de96aca412bbbc5a3cd24a293d7.pdf",
+  "sha256": "23e694cf47bec6ae2c4818dd8b4caff27b13331e8911f054b52a5416b6f28fe8",
+  "pages": 1,
+  "source_type": "scanned",
+  "text_layer": "none",
+  "language": "mixed",
+  "multi_post": true,
+  "verified": false,
+  "labelled_by": "claude-draft",
+  "notes": [
+    "Single tall scanned page. Qualifications are printed in English inside a Bangla circular.",
+    "Assistant Programmer: Master's, or 4-year Honours in any subject, or B.Sc. in Engineering or Computer Science.",
+    "Age 18-30; 32 for children of freedom fighters and for candidates with disabilities."
+  ],
+  "fact_card": {
+    "organisation": "বাংলাদেশ পল্লী উন্নয়ন বোর্ড",
+    "posts": [
+      {
+        "title": "সহকারী প্রোগ্রামার",
+        "vacancies": 1,
+        "min_degree": "Bachelor",
+        "subjects": [
+          "Any subject",
+          "Engineering",
+          "Computer Science"
+        ],
+        "min_result": null,
+        "experience_years": null,
+        "age_limit": null
+      },
+      {
+        "title": "সহকারী মেইনটেন্যান্স ইঞ্জিনিয়ার",
+        "vacancies": 1,
+        "min_degree": "Bachelor",
+        "subjects": [
+          "Computer Engineering",
+          "Electrical Engineering",
+          "Electronic Engineering"
+        ],
+        "min_result": null,
+        "experience_years": null,
+        "age_limit": null
+      },
+      {
+        "title": "ডাটা এন্ট্রি অপারেটর",
+        "vacancies": 2,
+        "min_degree": "HSC",
+        "subjects": null,
+        "min_result": null,
+        "experience_years": null,
+        "age_limit": null
+      }
+    ],
+    "deadline": "2017-03-07",
+    "age_limit": 30,
+    "age_as_of": "2017-02-07",
+    "fee": "300 (posts 1-2); 250 (post 3); bank draft or pay order, non-refundable",
+    "apply_mode": "post_or_in_person",
+    "how_to_apply": "Prescribed form (from www.brdb.gov.bd) to the Director General, BRDB, Palli Bhaban, 5 Kawran Bazar, Dhaka-1215, within office hours.",
+    "apply_link": null
+  }
+}

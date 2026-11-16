@@ -1,0 +1,38 @@
+{
+  "id": "c09_dyd_office_sohayok",
+  "file": "c09_dyd_office_sohayok.pdf",
+  "source_url": "https://objectstorage.ap-dcc-gazipur-1.oraclecloud15.com/n/axvjbnqprylg/b/V2Ministry/o/office-dyd/2026/2/c45c721e-3aaf-4b4b-b707-5257bc99902f.pdf",
+  "sha256": "d8be6632de9dbe9d3e49a6bad6580903b8746a62635f50e2e94501aac798ea21",
+  "pages": 4,
+  "source_type": "scanned",
+  "text_layer": "none",
+  "language": "bn",
+  "multi_post": false,
+  "verified": false,
+  "labelled_by": "claude-draft",
+  "notes": [
+    "The issue date has handwritten digits (30 March 2026).",
+    "Age 18-32."
+  ],
+  "fact_card": {
+    "organisation": "যুব উন্নয়ন অধিদপ্তর",
+    "posts": [
+      {
+        "title": "অফিস সহায়ক",
+        "vacancies": 103,
+        "min_degree": "SSC",
+        "subjects": null,
+        "min_result": null,
+        "experience_years": null,
+        "age_limit": null
+      }
+    ],
+    "deadline": "2026-05-01",
+    "age_limit": 32,
+    "age_as_of": "2026-05-01",
+    "fee": "56",
+    "apply_mode": "online",
+    "how_to_apply": "Online only via the Teletalk portal; fee paid by Teletalk prepaid SMS within 72 hours of submitting.",
+    "apply_link": "http://dyd.teletalk.com.bd"
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "id": "c12_fisheries_2020",
+  "file": "c12_fisheries_2020.pdf",
+  "source_url": "https://objectstorage.ap-dcc-gazipur-1.oraclecloud15.com/n/axvjbnqprylg/b/V2Ministry/o/office-fisheries/2024/12/1a7ac039602441469e83c48d531f1c89.pdf",
+  "sha256": "48a9a93940a944ca888dedaa4fdf7f209b63ec316e68ddf67509a77215208530",
+  "pages": 4,
+  "source_type": "scanned",
+  "text_layer": "none",
+  "language": "bn",
+  "multi_post": true,
+  "verified": false,
+  "labelled_by": "claude-draft",
+  "notes": [
+    "8 posts, 310 vacancies. The age reference date (1 January 2020) is earlier than the issue date (19 March 2020).",
+    "Age 18-30; 32 for children of freedom fighters and candidates with disabilities. One candidate may apply for only one post."
+  ],
+  "fact_card": {
+    "organisation": "মৎস্য অধিদপ্তর",
+    "posts": [
+      {
+        "title": "সাঁটমুদ্রাক্ষরিক-কাম-কম্পিউটার অপারেটর",
+        "vacancies": 5,
+        "min_degree": "Bachelor",
+        "subjects": null,
+        "min_result": "2nd class",
+        "experience_years": null,
+        "age_limit": null
+      },
+      {
+        "title": "হিসাবরক্ষক",
+        "vacancies": 9,
+        "min_degree": "Bachelor",
+        "subjects": null,
+        "min_result": null,
+        "experience_years": null,
+        "age_limit": null
+      },
+      {
+        "title": "অফিস সহকারী-কাম-কম্পিউটার মুদ্রাক্ষরিক",
+        "vacancies": 139,
+        "min_degree": "HSC",
+        "subjects": null,
+        "min_result": "2nd division",
+        "experience_years": null,
+        "age_limit": null
+      },
+      {
+        "title": "হ্যাচারি টেকনিশিয়ান",
+        "vacancies": 4,
+        "min_degree": "HSC",
+        "subjects": [
+          "বিজ্ঞান"
+        ],
+        "min_result": null,
+        "experience_years": null,
+        "age_limit": null
+      },
+      {
+        "title": "গাড়িচালক",
+        "vacancies": 10,
+        "min_degree": "Class 8",
+        "subjects": null,
+        "min_result": null,
+        "experience_years": 5,
+        "age_limit": null
+      },
+      {
+        "title": "পাম্প অপারেটর",
+        "vacancies": 19,
+        "min_degree": "Class 8",
+        "subjects": null,
+        "min_result": null,
+        "experience_years": 2,
+        "age_limit": null
+      },
+      {
+        "title": "নিরাপত্তা প্রহরী",
+        "vacancies": 23,
+        "min_degree": "Class 8",
+        "subjects": null,
+        "min_result": null,
+        "experience_years": null,
+        "age_limit": null
+      },
+      {
+        "title": "অফিস সহায়ক",
+        "vacancies": 101,
+        "min_degree": "SSC",
+        "subjects": null,
+        "min_result": null,
+        "experience_years": null,
+        "age_limit": null
+      }
+    ],
+    "deadline": "2020-04-23",
+    "age_limit": 30,
+    "age_as_of": "2020-01-01",
+    "fee": "112 (posts 1-5); 56 (posts 6-8)",
+    "apply_mode": "online",
+    "how_to_apply": "Online only via the Teletalk portal; fee paid by Teletalk prepaid SMS within 72 hours of submitting.",
+    "apply_link": "http://dof.teletalk.com.bd"
+  }
+}

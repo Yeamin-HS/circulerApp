@@ -1,0 +1,58 @@
+{
+  "id": "c15_minland_2023",
+  "file": "c15_minland_2023.pdf",
+  "source_url": "https://objectstorage.ap-dcc-gazipur-1.oraclecloud15.com/n/axvjbnqprylg/b/V2Ministry/o/office-minland/2024/12/77988074e3414d3c9f0bb5b40eca251a.pdf",
+  "sha256": "04f3cea975a2a5add9376cee73422c1ec04811d7bae938aac2ae3b7c3e23f357",
+  "pages": 4,
+  "source_type": "scanned",
+  "text_layer": "none",
+  "language": "bn",
+  "multi_post": true,
+  "verified": false,
+  "labelled_by": "claude-draft",
+  "notes": [
+    "Two application URLs are printed; the other is https://alljobs.teletalk.com.bd/minland.",
+    "Age 18-30; 32 for children of freedom fighters and candidates with disabilities; departmental candidates for posts 2-3 up to 40."
+  ],
+  "fact_card": {
+    "organisation": "ভূমি মন্ত্রণালয়",
+    "posts": [
+      {
+        "title": "কম্পিউটার অপারেটর",
+        "vacancies": 5,
+        "min_degree": "Bachelor",
+        "subjects": [
+          "বিজ্ঞান"
+        ],
+        "min_result": null,
+        "experience_years": null,
+        "age_limit": null
+      },
+      {
+        "title": "সাঁট-মুদ্রাক্ষরিক কাম-কম্পিউটার অপারেটর",
+        "vacancies": 8,
+        "min_degree": "Bachelor",
+        "subjects": null,
+        "min_result": null,
+        "experience_years": null,
+        "age_limit": null
+      },
+      {
+        "title": "অফিস সহকারী-কাম-কম্পিউটার মুদ্রাক্ষরিক",
+        "vacancies": 1,
+        "min_degree": "HSC",
+        "subjects": null,
+        "min_result": null,
+        "experience_years": null,
+        "age_limit": null
+      }
+    ],
+    "deadline": "2023-10-26",
+    "age_limit": 30,
+    "age_as_of": "2023-09-27",
+    "fee": "223 (all posts)",
+    "apply_mode": "online",
+    "how_to_apply": "Online only via the Teletalk portal; fee paid by Teletalk prepaid SMS within 72 hours of submitting.",
+    "apply_link": "http://minland.teletalk.com.bd"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "id": "c04_brdb_2019_04_28",
+  "file": "c04_brdb_2019_04_28.pdf",
+  "source_url": "https://objectstorage.ap-dcc-gazipur-1.oraclecloud15.com/n/axvjbnqprylg/b/V2Ministry/o/office-brdb/2024/12/8263141e8152465f92c0df1276052094.pdf",
+  "sha256": "a5aa48f95aaba2ec2fb252e0df39e46c8569eaa75b805afa1c1b25afb34a4eb0",
+  "pages": 1,
+  "source_type": "scanned",
+  "text_layer": "none",
+  "language": "bn",
+  "multi_post": false,
+  "verified": false,
+  "labelled_by": "claude-draft",
+  "notes": [
+    "Prose circular with no table. Vacancy count and fee are not stated.",
+    "Age is 'not over 60 on the last date for submitting applications', so age_as_of equals the deadline (derived, not printed as a date).",
+    "Requires LLB / LLB (Hons) / LLM / Bar-at-Law; 5 years of practice, including 4 years in the High Court Division."
+  ],
+  "fact_card": {
+    "organisation": "বাংলাদেশ পল্লী উন্নয়ন বোর্ড",
+    "posts": [
+      {
+        "title": "আইন উপদেষ্টা এবং প্যানেল আইনবিদ",
+        "vacancies": null,
+        "min_degree": "Bachelor",
+        "subjects": [
+          "আইন"
+        ],
+        "min_result": null,
+        "experience_years": 5,
+        "age_limit": 60
+      }
+    ],
+    "deadline": "2019-05-15",
+    "age_limit": 60,
+    "age_as_of": "2019-05-15",
+    "fee": null,
+    "apply_mode": "post_or_in_person",
+    "how_to_apply": "Application with attested documents to the Director General, BRDB, Palli Bhaban, 5 Kawran Bazar, Dhaka-1215, within office hours.",
+    "apply_link": null
+  }
+}

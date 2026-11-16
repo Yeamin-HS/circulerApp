@@ -1,0 +1,65 @@
+{
+  "id": "c07_bcc_2025",
+  "file": "c07_bcc_2025.pdf",
+  "source_url": "https://objectstorage.ap-dcc-gazipur-1.oraclecloud15.com/n/axvjbnqprylg/b/V2Ministry/o/office-ictd/2024/12/45bccbd1140b471cbeb9bbb46b28c878.pdf",
+  "sha256": "71c121207317191745783505edbe4db9d495f658220dafe227ad4a35bda4e51d",
+  "pages": 1,
+  "source_type": "scanned",
+  "text_layer": "junk_ocr",
+  "language": "bn",
+  "multi_post": true,
+  "verified": false,
+  "labelled_by": "claude-draft",
+  "notes": [
+    "Scanned, with a junk Latin-script text layer.",
+    "Age 18-32. Lab Assistant also needs a 6-month computer certificate course."
+  ],
+  "fact_card": {
+    "organisation": "বাংলাদেশ কম্পিউটার কাউন্সিল",
+    "posts": [
+      {
+        "title": "কম্পিউটার অপারেটর",
+        "vacancies": 4,
+        "min_degree": "Bachelor",
+        "subjects": null,
+        "min_result": null,
+        "experience_years": null,
+        "age_limit": null
+      },
+      {
+        "title": "গাড়ি চালক",
+        "vacancies": 1,
+        "min_degree": "JSC",
+        "subjects": null,
+        "min_result": null,
+        "experience_years": null,
+        "age_limit": null
+      },
+      {
+        "title": "ল্যাব সহকারী",
+        "vacancies": 2,
+        "min_degree": "HSC",
+        "subjects": null,
+        "min_result": null,
+        "experience_years": null,
+        "age_limit": null
+      },
+      {
+        "title": "অফিস সহায়ক",
+        "vacancies": 2,
+        "min_degree": "SSC",
+        "subjects": null,
+        "min_result": null,
+        "experience_years": null,
+        "age_limit": null
+      }
+    ],
+    "deadline": "2025-09-11",
+    "age_limit": 32,
+    "age_as_of": "2025-08-01",
+    "fee": "168 (post 1); 112 (post 2); 56 (posts 3-4); paid online by Rocket/bKash/Nagad",
+    "apply_mode": "online",
+    "how_to_apply": "Online only at the BCC e-recruitment site, by 11:59 PM on the deadline.",
+    "apply_link": "https://erecruitment.bcc.gov.bd"
+  }
+}

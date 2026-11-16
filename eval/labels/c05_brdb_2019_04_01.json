@@ -1,0 +1,57 @@
+{
+  "id": "c05_brdb_2019_04_01",
+  "file": "c05_brdb_2019_04_01.pdf",
+  "source_url": "https://objectstorage.ap-dcc-gazipur-1.oraclecloud15.com/n/axvjbnqprylg/b/V2Ministry/o/office-brdb/2024/12/a8c54b30e23a447baa4a81fad8741b4e.pdf",
+  "sha256": "68177afd2996643eb001e068b513175cdb8f3358d3d4a5c3c260f2bb5d3e051c",
+  "pages": 2,
+  "source_type": "scanned",
+  "text_layer": "junk_ocr",
+  "language": "bn",
+  "multi_post": true,
+  "verified": false,
+  "labelled_by": "claude-draft",
+  "notes": [
+    "Scanned, with a junk text layer (Latin-script OCR output over Bangla). A naive 'has text layer' check would misclassify it as digital.",
+    "Page 2 is a separate outsourcing tender notice with its own post table (25 workers). It is a distractor; this label covers page 1 only.",
+    "Age limit is 32 for children or dependants of freedom fighters."
+  ],
+  "fact_card": {
+    "organisation": "বাংলাদেশ পল্লী উন্নয়ন বোর্ড, গাইবান্ধা সমন্বিত পল্লী দারিদ্র্য দূরীকরণ প্রকল্প",
+    "posts": [
+      {
+        "title": "ম্যানেজার (মার্কেট লিংকেজ শো-রুম)",
+        "vacancies": 1,
+        "min_degree": "Masters",
+        "subjects": null,
+        "min_result": null,
+        "experience_years": null,
+        "age_limit": null
+      },
+      {
+        "title": "অফিস সহকারী কাম-কম্পিউটার অপারেটর",
+        "vacancies": 1,
+        "min_degree": "Bachelor",
+        "subjects": null,
+        "min_result": null,
+        "experience_years": null,
+        "age_limit": null
+      },
+      {
+        "title": "গাড়ী চালক",
+        "vacancies": 1,
+        "min_degree": "Class 8",
+        "subjects": null,
+        "min_result": null,
+        "experience_years": 5,
+        "age_limit": null
+      }
+    ],
+    "deadline": "2019-04-25",
+    "age_limit": 30,
+    "age_as_of": "2019-04-25",
+    "fee": "200 (posts 1-2); 150 (post 3); bank draft or pay order, non-refundable",
+    "apply_mode": "post_or_in_person",
+    "how_to_apply": "Application on A4 paper to the Project Director, Gaibandha Integrated Rural Poverty Alleviation Project, Palashbari Road, Gaibandha, by post or the office drop box.",
+    "apply_link": null
+  }
+}

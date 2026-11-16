@@ -1,0 +1,38 @@
+{
+  "id": "c10_dyd_driver",
+  "file": "c10_dyd_driver.pdf",
+  "source_url": "https://objectstorage.ap-dcc-gazipur-1.oraclecloud15.com/n/axvjbnqprylg/b/V2Ministry/o/office-dyd/2024/12/3a1d31633257491490e4ddff8818bca6.pdf",
+  "sha256": "676256a890a0e69193844c34ddcf9c9dae1330ee1ded05c1736ed909540b3de5",
+  "pages": 4,
+  "source_type": "scanned",
+  "text_layer": "none",
+  "language": "bn",
+  "multi_post": false,
+  "verified": false,
+  "labelled_by": "claude-draft",
+  "notes": [
+    "Low-quality bilevel scan.",
+    "Requires a valid heavy driving licence; experience is preferred, not required. Age 18-32."
+  ],
+  "fact_card": {
+    "organisation": "যুব উন্নয়ন অধিদপ্তর",
+    "posts": [
+      {
+        "title": "গাড়িচালক",
+        "vacancies": 9,
+        "min_degree": "JSC",
+        "subjects": null,
+        "min_result": null,
+        "experience_years": null,
+        "age_limit": null
+      }
+    ],
+    "deadline": "2025-08-26",
+    "age_limit": 32,
+    "age_as_of": "2025-08-26",
+    "fee": "223",
+    "apply_mode": "online",
+    "how_to_apply": "Online only via the Teletalk portal; fee paid by Teletalk prepaid SMS within 72 hours of submitting.",
+    "apply_link": "http://dyd.teletalk.com.bd"
+  }
+}

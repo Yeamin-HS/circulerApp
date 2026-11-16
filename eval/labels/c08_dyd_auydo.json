@@ -1,0 +1,39 @@
+{
+  "id": "c08_dyd_auydo",
+  "file": "c08_dyd_auydo.pdf",
+  "source_url": "https://objectstorage.ap-dcc-gazipur-1.oraclecloud15.com/n/axvjbnqprylg/b/V2Ministry/o/office-dyd/2026/5/b62cb547-9659-4a37-a2cf-543c77ed45f5.pdf",
+  "sha256": "73c6986c493e5d4a5a67507de8960ff93d77cae5f92435173fdaf73fe054a3c7",
+  "pages": 4,
+  "source_type": "scanned",
+  "text_layer": "none",
+  "language": "bn",
+  "multi_post": false,
+  "verified": false,
+  "labelled_by": "claude-draft",
+  "notes": [
+    "Re-advertisement: earlier applicants (circular of 16 November 2025) need not apply again.",
+    "The issue date has handwritten digits (17 May 2026).",
+    "Age 18-32."
+  ],
+  "fact_card": {
+    "organisation": "যুব উন্নয়ন অধিদপ্তর",
+    "posts": [
+      {
+        "title": "সহকারী উপজেলা যুব উন্নয়ন কর্মকর্তা",
+        "vacancies": 242,
+        "min_degree": "Bachelor",
+        "subjects": null,
+        "min_result": "2nd class",
+        "experience_years": null,
+        "age_limit": null
+      }
+    ],
+    "deadline": "2026-06-23",
+    "age_limit": 32,
+    "age_as_of": "2026-06-23",
+    "fee": "168 (56 for disadvantaged-group candidates)",
+    "apply_mode": "online",
+    "how_to_apply": "Online only via the Teletalk portal; fee paid by Teletalk prepaid SMS within 72 hours of submitting.",
+    "apply_link": "http://dyd.teletalk.com.bd"
+  }
+}

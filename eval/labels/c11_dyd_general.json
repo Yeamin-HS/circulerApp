@@ -1,0 +1,116 @@
+{
+  "id": "c11_dyd_general",
+  "file": "c11_dyd_general.pdf",
+  "source_url": "https://objectstorage.ap-dcc-gazipur-1.oraclecloud15.com/n/axvjbnqprylg/b/V2Ministry/o/office-dyd/2024/12/8cb7bca0e909469d8a6690e588140d28.pdf",
+  "sha256": "574038a0fbff9d8d195b9fb4e48d8f8f3529d14cb7d47e092b359d42b5ebd6a9",
+  "pages": 5,
+  "source_type": "scanned",
+  "text_layer": "none",
+  "language": "bn",
+  "multi_post": true,
+  "verified": false,
+  "labelled_by": "claude-draft",
+  "notes": [
+    "The post table continues from page 1 to page 2. 9 posts, 120 vacancies in total (printed total matches).",
+    "Age 18-30; 32 for children of freedom fighters and candidates with disabilities."
+  ],
+  "fact_card": {
+    "organisation": "যুব উন্নয়ন অধিদপ্তর",
+    "posts": [
+      {
+        "title": "কম্পিউটার অপারেটর",
+        "vacancies": 2,
+        "min_degree": "Bachelor",
+        "subjects": [
+          "বিজ্ঞান"
+        ],
+        "min_result": null,
+        "experience_years": null,
+        "age_limit": null
+      },
+      {
+        "title": "সাঁট-মুদ্রাক্ষরিক কাম কম্পিউটার অপারেটর",
+        "vacancies": 2,
+        "min_degree": "Bachelor",
+        "subjects": null,
+        "min_result": "2nd class",
+        "experience_years": null,
+        "age_limit": null
+      },
+      {
+        "title": "জুনিয়র প্রশিক্ষক (পোশাক)",
+        "vacancies": 8,
+        "min_degree": "HSC",
+        "subjects": null,
+        "min_result": null,
+        "experience_years": 1,
+        "age_limit": null
+      },
+      {
+        "title": "জুনিয়র ডেমোনেস্ট্রেটর (ব্লক ও বাটিক)",
+        "vacancies": 2,
+        "min_degree": "HSC",
+        "subjects": null,
+        "min_result": null,
+        "experience_years": 1,
+        "age_limit": null
+      },
+      {
+        "title": "প্রদর্শক",
+        "vacancies": 19,
+        "min_degree": "HSC",
+        "subjects": null,
+        "min_result": null,
+        "experience_years": null,
+        "age_limit": null
+      },
+      {
+        "title": "গাড়িচালক",
+        "vacancies": 23,
+        "min_degree": "JSC",
+        "subjects": null,
+        "min_result": null,
+        "experience_years": null,
+        "age_limit": null
+      },
+      {
+        "title": "হিসাব সহকারী কাম-মুদ্রাক্ষরিক",
+        "vacancies": 1,
+        "min_degree": "HSC",
+        "subjects": [
+          "বাণিজ্য"
+        ],
+        "min_result": null,
+        "experience_years": null,
+        "age_limit": null
+      },
+      {
+        "title": "ক্যাশিয়ার",
+        "vacancies": 58,
+        "min_degree": "Bachelor",
+        "subjects": [
+          "বাণিজ্য"
+        ],
+        "min_result": null,
+        "experience_years": null,
+        "age_limit": null
+      },
+      {
+        "title": "ইলেকট্রিশিয়ান কাম-পাম্প অপারেটর",
+        "vacancies": 5,
+        "min_degree": "HSC",
+        "subjects": null,
+        "min_result": null,
+        "experience_years": null,
+        "age_limit": null
+      }
+    ],
+    "deadline": "2024-12-02",
+    "age_limit": 30,
+    "age_as_of": "2024-12-02",
+    "fee": "223 (posts 1-8); 112 (post 9)",
+    "apply_mode": "online",
+    "how_to_apply": "Online only via the Teletalk portal; fee paid by Teletalk prepaid SMS within 72 hours of submitting.",
+    "apply_link": "http://dyd.teletalk.com.bd"
+  }
+}

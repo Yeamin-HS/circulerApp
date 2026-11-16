@@ -1,8 +1,8 @@
-"""Account and profile routes (contract only; built in Stories 2.1-2.3)."""
+"""Account and profile routes. GET /me is live (Story 2.1); the rest arrive in 2.2-2.3."""
 
 from fastapi import APIRouter, UploadFile
 
-from app.api.deps import AUTH_ERRORS, NOT_FOUND, UPLOAD_ERRORS, CurrentUser
+from app.api.deps import AUTH_ERRORS, NOT_FOUND, UPLOAD_ERRORS, CurrentUser, user_out
 from app.core.errors import not_implemented
 from app.core.schemas import ConsentRequest, CVDraft, CVProfile, ErrorResponse, ProfileOut, UserOut
 
@@ -13,7 +13,7 @@ CONSENT = {403: {"model": ErrorResponse}}
 @router.get("", response_model=UserOut)
 def get_me(user: CurrentUser) -> UserOut:
     """The signed-in user, with consent and profile state."""
-    raise not_implemented("2.1")
+    return user_out(user)
 
 
 @router.delete("", status_code=204)

@@ -50,8 +50,7 @@ them costs missed deadlines or wasted non-refundable application fees.
 - **Bijoy / SutonnyMJ**: legacy non-Unicode Bangla font encoding; must be converted.
 
 ## Current phase / status
-- Phase: 1 — Initiation & Architecture, stories complete except 1.2's owner tasks (repo
-  skeleton, test corpus, format spike, agent design, frozen API contract; no feature code yet)
+- Phase: 2 — Accounts and profile (Epic 1 stories complete except 1.2's owner tasks)
 - Last updated: 2026-11-17
 - Story 1.2: 15 circulars collected with draft labels; open until the owner verifies the
   labels and adds at least 2 Bijoy circulars
@@ -60,5 +59,8 @@ them costs missed deadlines or wasted non-refundable application fees.
 - Story 1.4: done, design in docs/AGENT.md, prompts in backend/app/agent/prompts.py, ADR-009
 - Story 1.5: done, contract in docs/API.md and docs/openapi.json, ADR-010. All routes except
   `/health` are stubs returning 501
-- Next step: Increment 1 (`eval/run_eval.py --extract-only`), then Story 2.1 (auth)
+- Story 2.1: done. Register, login and `GET /me` are live (ADR-011 database access, ADR-012
+  JWT storage)
+- Next step: Story 2.2 (consent + delete). Increment 1 (`eval/run_eval.py --extract-only`)
+  is still not built
 - Open questions: see "Open items" at the end of docs/ARCHITECTURE.md

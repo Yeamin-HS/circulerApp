@@ -1,9 +1,19 @@
+import { AuthProvider } from './components/AuthProvider'
+import { useAuth } from './hooks/useAuth'
+import { AuthPage } from './pages/AuthPage'
+import { HomePage } from './pages/HomePage'
+
+function Screen() {
+  const { status } = useAuth()
+  if (status === 'loading') return <p className="loading">Loading…</p>
+  return status === 'signedIn' ? <HomePage /> : <AuthPage />
+}
+
 function App() {
   return (
-    <main>
-      <h1>Ask the Circular</h1>
-      <p>Skeleton only. Features arrive from Epic 2 onwards.</p>
-    </main>
+    <AuthProvider>
+      <Screen />
+    </AuthProvider>
   )
 }
 

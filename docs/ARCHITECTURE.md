@@ -234,6 +234,5 @@ Free-tier limits change; re-check every quota before deploying.
    fallback `openai/gpt-oss-120b`).
 5. Does embedding + OCR fit Render's free RAM? OCR does (ADR-008); the embedding model is
    not measured yet.
-6. JWT storage: an in-memory token means signing in again after refresh. localStorage carries
-   XSS risk (mitigated with a strict CSP). Cross-site cookies (Vercel ↔ Render) can be blocked
-   by Safari. Decide in Story 2.1.
+6. JWT storage: resolved by ADR-012 (in memory, mirrored to `sessionStorage`; a CSP header
+   is added with the Vercel deployment).

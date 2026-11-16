@@ -12,7 +12,7 @@ page is the human summary. Run the backend and open `/docs` for the interactive 
 
 - JSON in and out, UTF-8. File uploads are `multipart/form-data` with one field, `file`.
 - Auth: `Authorization: Bearer <JWT>`. Tokens last 60 minutes; there is no refresh token in
-  v1 (ADR-001). Where the frontend keeps the token is decided in Story 2.1.
+  v1 (ADR-001). The frontend keeps the token in memory and `sessionStorage` (ADR-012).
 - Ids are integers. Dates are `YYYY-MM-DD`; timestamps are ISO 8601 in UTC.
 - Unknown fields in a request body are rejected (422).
 - A user only ever sees their own data. Another user's resource returns 404, not 403.
@@ -22,9 +22,9 @@ page is the human summary. Run the backend and open `/docs` for the interactive 
 
 | Method and path | Auth | Request | Success | Other statuses | Built in |
 |---|---|---|---|---|---|
-| `POST /auth/register` | — | `RegisterRequest` | 201 `TokenResponse` | 409 `email_taken`, 422 | 2.1 |
-| `POST /auth/login` | — | `LoginRequest` | 200 `TokenResponse` | 401 `invalid_credentials`, 422 | 2.1 |
-| `GET /me` | seeker | — | 200 `UserOut` | 401 | 2.1 |
+| `POST /auth/register` | — | `RegisterRequest` | 201 `TokenResponse` | 409 `email_taken`, 422, 429 | done |
+| `POST /auth/login` | — | `LoginRequest` | 200 `TokenResponse` | 401 `invalid_credentials`, 422, 429 | done |
+| `GET /me` | seeker | — | 200 `UserOut` | 401 | done |
 | `DELETE /me` | seeker | — | 204 | 401 | 2.2 |
 | `POST /me/consent` | seeker | `ConsentRequest` | 200 `UserOut` | 401, 422 | 2.2 |
 | `POST /me/cv` | seeker | file: PDF or DOCX, ≤ 5 MB | 200 `CVDraft` | 401, 403 `consent_required`, 413, 415, 422, 429 | 2.3 |
@@ -41,6 +41,10 @@ page is the human summary. Run the backend and open `/docs` for the interactive 
 Not part of the frozen contract (v1.1): `POST /admin/eval`, `GET /admin/metrics`.
 
 Notes:
+- Register and login share a limit of 10 attempts per 5 minutes per IP address; beyond it
+  they return 429 `rate_limited` with `retry_after`. Emails are compared in lower case.
+- Login gives the same 401 for a wrong password and an unknown email.
+- The role is read from the database on every request, not from the token.
 - `POST /me/cv` stores nothing. The draft becomes a profile only through `PUT /me/profile`,
   which also deletes the uploaded file (SOP hard rule 6).
 - `GET /circulars` is sorted by deadline, earliest first, circulars with no deadline last.
@@ -168,6 +172,7 @@ data: {"answer": "আবেদনপত্র জমাদানের শেষ
 | `citation` ids are strings (`c:7`, `p`, `e:3`) | answers also cite the profile and eligibility results |
 | one error body for every status | the frontend handles errors in one place |
 | `ProfileOut.version` added | part of the answer cache key (ARCHITECTURE §6) |
+| 429 added to register and login (2026-11-17, Story 2.1) | per-IP limit on password guessing (NFR-09) |
 
 ## 7. Changing the contract
 

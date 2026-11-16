@@ -15,7 +15,6 @@ from fastapi.testclient import TestClient
 from app.main import app
 
 SNAPSHOT = Path(__file__).parents[2] / "docs" / "openapi.json"
-client = TestClient(app)
 
 ENDPOINTS = {
     ("POST", "/auth/register"),
@@ -50,7 +49,7 @@ def test_endpoint_list_is_exact() -> None:
     assert found == ENDPOINTS
 
 
-def test_every_private_route_requires_a_token() -> None:
+def test_every_private_route_requires_a_token(client: TestClient) -> None:
     for method, path in sorted(ENDPOINTS):
         if path in PUBLIC:
             continue
@@ -59,12 +58,12 @@ def test_every_private_route_requires_a_token() -> None:
         assert response.json()["error"]["code"] == "unauthorized"
 
 
-def test_errors_share_one_shape() -> None:
+def test_errors_share_one_shape(client: TestClient, token: str) -> None:
     invalid = client.post("/auth/register", json={"email": "not-an-email", "password": "x"})
     assert invalid.status_code == 422
     assert invalid.json()["error"]["code"] == "validation_error"
 
-    stub = client.post("/auth/login", json={"email": "a@example.com", "password": "password1"})
+    stub = client.get("/me/profile", headers={"Authorization": f"Bearer {token}"})
     assert stub.status_code == 501
     assert stub.json()["error"]["code"] == "not_implemented"
 

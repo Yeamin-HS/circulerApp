@@ -109,3 +109,95 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+/* ---------- auth screens (Story 2.1) ---------- */
+.card {
+  width: min(420px, 100% - 32px);
+  margin: 0 auto;
+  padding: 24px 0 48px;
+  text-align: left;
+}
+.card h1 {
+  font-size: 32px;
+  letter-spacing: -0.6px;
+  text-align: center;
+}
+.card h2 {
+  margin-bottom: 20px;
+}
+.card form {
+  display: grid;
+  gap: 16px;
+}
+.card label {
+  display: grid;
+  gap: 6px;
+  font-size: 15px;
+  color: var(--text-h);
+}
+.card input {
+  font: inherit;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text-h);
+}
+.card input:focus-visible,
+.card button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.card small {
+  color: var(--text);
+}
+.card button {
+  font: inherit;
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+}
+.card button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+.card button.link {
+  padding: 0;
+  background: none;
+  color: var(--accent);
+  text-decoration: underline;
+}
+.card .error {
+  padding: 10px 12px;
+  border: 1px solid #d33;
+  border-radius: 8px;
+  color: #d33;
+  font-size: 15px;
+}
+.card .switch {
+  margin-top: 20px;
+  font-size: 15px;
+}
+.card .facts {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px 16px;
+  margin: 0 0 20px;
+}
+.card .facts dt {
+  color: var(--text);
+}
+.card .facts dd {
+  margin: 0;
+  color: var(--text-h);
+  overflow-wrap: anywhere;
+}
+.card > p {
+  margin-bottom: 20px;
+}
+.loading {
+  margin-top: 96px;
+}
